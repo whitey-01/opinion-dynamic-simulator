@@ -6,7 +6,7 @@
 
 ### Main classes and functions are situated in /simulator/simulator.py
 
-### You will find 2 runner scripts:
+### Runner scripts:
   1. Performs a single simulation on a graph with a specific configuration and creates a folder named with an auto-generated simulation id, containing:
       - a png rappresentation of the graph
       - an xml file containing basic information about the configuration parameters (such as id, opinion update rule, bias towards dominant opinion) and the 
