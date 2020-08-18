@@ -5,6 +5,8 @@
 
 
 ### Main classes and functions are situated in /simulator
+#### Graph_Utilities contains script used to build different graph topologies (some of them are custom, some other are provided by graph_tool library) such as k-clique and hypercubes.
+
 
 ### Runner scripts:
   1. Performs a single simulation on a graph with a specific configuration and creates a folder named with an auto-generated simulation id, containing:
@@ -15,10 +17,9 @@
       - a folder containing png's showing the evolution of the simulation (start-stage, 25%, 50%, 75%, final-stage)
         (stored in output/simulations/<SIMULATION_ID>/evolution_imgs)
 
-  2. Performs multiple simulations on a fixed graph and configuration. Produces a list of Simulation objects that you can analyze.
+  2. Performs multiple simulations on a fixed graph and configuration. Produces an xml file containing the configuration, the rounds needed for each simulation
+     and the average rounds.
 
 Opinion update rules available: 
 - Majority-Dynamic (update opinion of agent A based on the most diffused one among its neighbours)
 - Voter-Model (update opinion of agent A by copying the opinion of a randomly selected neighbour)
-Utilities for creating different graph topologies (some of them are custom, some other are provided by graph_tool) such as k-clique and hypercubes.
-
