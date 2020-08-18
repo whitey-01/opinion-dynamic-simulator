@@ -8,7 +8,7 @@
 ### Main modules used to define and perform simulations are situated under /simulator
 
 ### Runner scripts:
-  1. Performs a single simulation on a graph with a specific configuration and creates a folder named with an auto-generated simulation id, containing:
+  1. Performs a single simulation on a graph with a specific configuration and creates a folder, named with an auto-generated simulation id, containing:
       - a png rappresentation of the graph
       - an xml file containing basic information about the configuration parameters (such as id, opinion update rule, bias towards dominant opinion)
       - an xml file containing the simulation result ( num of rounds needed to reach the absorbing state)
