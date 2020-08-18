@@ -1,18 +1,19 @@
-import simulator as sim
-import graph_utilities as gu
-
+import simulator.simulator as sim
+import simulator.simulation_configurator as sc
+import simulator.simulation_result as sr
+import simulator.graph_utilities as gu
 
 #simple main that generate a graph and test the simulator
 
-#graph = gu.generateHypercubeGraph(4)
+graph = gu.generateHypercubeGraph(6)
 #graph = gu.generateKCliqueGraph(15)
-graph = gu.generateKCycleGraph(60)
+#graph = gu.generateKCycleGraph(60)
 
-config = sim.SimulationConfigurator(graph=graph,
+config = sc.SimulationConfigurator(graph=graph,
                                     bias=0.35,
-                                    opinion_update_rule=sim.OpinionUpdateRule.MAJORITY_DYNAMICS,
-                                    comment="Ciclo di 60 nodi")
-simulationResult: sim.SimulationResult = sim.runSimulationOn(config)
+                                    opinion_update_rule=sc.OpinionUpdateRule.MAJORITY_DYNAMICS,
+                                    comment="Ipercubo di distanza 6")
+simulationResult: sr.SimulationResult = sim.runSimulationOn(config)
 
 #print simulation data such as rounds, configuration parameters ecc..
 simulationResult.printSimulationData()
