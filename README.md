@@ -3,7 +3,7 @@
 
 ### REQUIRES graph_tool lib available here -> https://graph-tool.skewed.de/
 
-You will find 2 runner scripts:\n
+**You will find 2 runner scripts:
   - Performs a single simulation on a graph with a specific configuration and creates a folder named with an auto-generated simulation id, containing:
       - a png rappresentation of the graph
       - an xml file containing basic information about the configuration parameters (such as id, opinion update rule, bias towards dominant opinion) and the 
@@ -17,4 +17,4 @@ You will find 2 runner scripts:\n
 2 opinion update rules are available: Majority-Dynamic and Voter-Model
 Utilities for creating different graph topologies (some of them are custom, some other are provided by graph_tool) such as k-clique and hypercubes.
 
-# Main classes and functions are situated in simulator.py
+### Main classes and functions are situated in simulator.py
