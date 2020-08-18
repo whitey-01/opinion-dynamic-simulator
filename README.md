@@ -1,8 +1,9 @@
 # Opinion-dynamic-simulator 
 ## Python-based software that simulates a binary opinion system where agents are biased towards a superior opinion ##
 
-### REQUIRES graph_tool lib available here -> https://graph-tool.skewed.de/ ###
-
+### REQUIRES:
+  - Python (3.8 recommended)
+  - graph_tool lib available here -> https://graph-tool.skewed.de/ 
 
 ### Main modules used to define and perform simulations are situated under /simulator
 
