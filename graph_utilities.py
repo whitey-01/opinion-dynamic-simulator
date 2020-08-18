@@ -13,7 +13,7 @@ def addVerticesTo(graph: Graph, vertices_num: int):
 #every vertex has exactly deg(v) = d
 #the hypercube is built using the bitfix idea
 # --WILL CHANGE--return the graph and also the binary rappresentation of the vertices 
-def generateHypercubeGraph(d: int, draw: bool):
+def generateHypercubeGraph(d: int):
     vertices_num = pow(2,d)
     g = Graph(directed = False)
     #creates a new vertex property to indicate the vertex using its binary rappresentation
@@ -45,12 +45,10 @@ def generateHypercubeGraph(d: int, draw: bool):
             if g.edge(vertex,neighbourVertex) is None:
                 g.add_edge(vertex,neighbourVertex)
             bitPos += 1
-    if draw:
-        graph_draw(g, vertex_text=binaryProperty, output="output/hypercube.png",bg_color=[255, 255, 255, 1])
     return g
 
 #generates a k-clique given the number of vertices
-def generateKCliqueGraph(vertices_num: int, draw: bool):
+def generateKCliqueGraph(vertices_num: int):
     g = Graph(directed = False)
     g = addVerticesTo(g,vertices_num)
 
@@ -58,6 +56,21 @@ def generateKCliqueGraph(vertices_num: int, draw: bool):
         for v2 in g.vertices():
             if (g.vertex_index[v1] != g.vertex_index[v2]) and (g.edge(v1,v2) is None):
                 g.add_edge(v1,v2)
-    if draw:
-        graph_draw(g, vertex_text=g.vertex_index, output="output/clique.png", bg_color=[255, 255, 255, 1])
+    return g
+
+
+#generates a k-cycle given the number of vertices
+def generateKCycleGraph(vertices_num: int):
+    g = Graph(directed=False)
+    g = addVerticesTo(g, vertices_num)
+
+    for i in range(0,len(list(g.vertices()))):
+        v1 = g.vertex(i)
+        if i == len(list(g.vertices())) - 1:
+            v2 = g.vertex(0)
+        else:
+            v2 = g.vertex(i+1)
+
+        if g.edge(v1,v2) is None:
+            g.add_edge(v1,v2)
     return g

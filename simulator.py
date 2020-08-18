@@ -7,6 +7,9 @@ import matplotlib.colors as mc
 import time
 
 
+OUTPUT_DIR = "output/"
+SIMULATIONS_DIR = OUTPUT_DIR + "simulations/"
+
 #return correct color for a vertex based on its opinion
 def color_map(opinion):
     if opinion == 0:
@@ -147,15 +150,21 @@ class SimulationResult:
     #in this folder saves an xml file of the graph, an xml file of the simulation, a .png of the graph
     #and a folder containing png's of the graph showing the evolution of process
     def saveSimulationData(self):
-        mainDir = "output/simulations/s_" + self.simulation_id + "/"
-        os.mkdir(mainDir)
-        imgDir = mainDir + "evolution_imgs/"
-        os.mkdir(imgDir)
 
-        with open(mainDir + "simulation.xml", "w") as f:
+        if not os.path.isdir(OUTPUT_DIR):
+            os.mkdir(OUTPUT_DIR)
+        if not os.path.isdir(SIMULATIONS_DIR):
+            os.mkdir(SIMULATIONS_DIR)
+
+        simulation_dir = SIMULATIONS_DIR + "s_" + self.simulation_id + "/"
+        os.mkdir(simulation_dir)
+        evolution_img_dir = simulation_dir + "evolution_imgs/"
+        os.mkdir(evolution_img_dir)
+
+        with open(simulation_dir + "simulation.xml", "w") as f:
             f.write(self.getSimulationDataAsXML())
 
-        self.original_graph.save(mainDir + "graph.xml")
+        self.original_graph.save(simulation_dir + "graph.xml")
 
         #0%, 25%, 50%, 75%, 100%
         steps = [0]
@@ -171,7 +180,7 @@ class SimulationResult:
                       vertex_text=self.original_graph.vertex_index,
                       vertex_text_color=(1, 1, 1, 1),
                       edge_color=(1, 1, 1, 0.7),
-                      output=mainDir + "graph.png",
+                      output=simulation_dir + "graph.png",
                       output_size=(1600, 1600),
                       adjust_aspect=False,
                       bg_color=(0.09411764705882353, 0.11372549019607843, 0.15294117647058825, 1))
@@ -187,7 +196,7 @@ class SimulationResult:
                           vertex_text=opinion,
                           vertex_text_color=(1,1,1,1),
                           edge_color=(1,1,1,0.7),
-                          output=imgDir + "round-" + str(step) + ".png",
+                          output=evolution_img_dir + "round-" + str(step) + ".png",
                           output_size=(1600,1600),
                           adjust_aspect=False,
                           bg_color=(0.09411764705882353, 0.11372549019607843, 0.15294117647058825,1))
