@@ -3,7 +3,7 @@
 
 ### REQUIRES graph_tool lib available here -> https://graph-tool.skewed.de/
 
-**You will find 2 runner scripts:
+You will find 2 runner scripts:
   - Performs a single simulation on a graph with a specific configuration and creates a folder named with an auto-generated simulation id, containing:
       - a png rappresentation of the graph
       - an xml file containing basic information about the configuration parameters (such as id, opinion update rule, bias towards dominant opinion) and the 
