@@ -5,8 +5,6 @@
 
 
 ### Main classes and functions are situated in /simulator
-#### Graph_Utilities contains script used to build different graph topologies (some of them are custom, some other are provided by graph_tool library) such as k-clique and hypercubes.
-
 
 ### Runner scripts:
   1. Performs a single simulation on a graph with a specific configuration and creates a folder named with an auto-generated simulation id, containing:
