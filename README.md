@@ -4,7 +4,7 @@
 ### REQUIRES graph_tool lib available here -> https://graph-tool.skewed.de/
 
 You will find 2 runner scripts:
-  - Performs a single simulation on a graph with a specific configuration and creates a folder named with an auto-generated simulation id, containing:
+  1. Performs a single simulation on a graph with a specific configuration and creates a folder named with an auto-generated simulation id, containing:
       - a png rappresentation of the graph
       - an xml file containing basic information about the configuration parameters (such as id, opinion update rule, bias towards dominant opinion) and the 
         output result ( num of rounds needed to reach the absorbing state)
@@ -12,9 +12,11 @@ You will find 2 runner scripts:
       - a folder containing png's showing the evolution of the simulation (start-stage, 25%, 50%, 75%, final-stage)
         (stored in output/simulations/<SIMULATION_ID>/evolution_imgs)
 
-  - Performs multiple simulations on a fixed graph and configuration. Produces a list of Simulation objects that you can analyze.
+  2. Performs multiple simulations on a fixed graph and configuration. Produces a list of Simulation objects that you can analyze.
 
-2 opinion update rules are available: Majority-Dynamic and Voter-Model
+Opinion update rules available: 
+- Majority-Dynamic (update opinion of agent A based on the most diffused one among its neighbours)
+- Voter-Model (update opinion of agent A by copying the opinion of a randomly selected neighbour)
 Utilities for creating different graph topologies (some of them are custom, some other are provided by graph_tool) such as k-clique and hypercubes.
 
 ### Main classes and functions are situated in simulator.py
