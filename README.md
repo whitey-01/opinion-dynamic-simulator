@@ -4,7 +4,7 @@
 ### REQUIRES graph_tool lib available here -> https://graph-tool.skewed.de/ ###
 
 
-### Main classes and functions are situated in /simulator
+### Main modules used to define and perform simulations are situated under /simulator
 
 ### Runner scripts:
   1. Performs a single simulation on a graph with a specific configuration and creates a folder named with an auto-generated simulation id, containing:
