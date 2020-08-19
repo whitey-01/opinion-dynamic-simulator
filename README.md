@@ -5,9 +5,9 @@
   - Python (3.8 recommended)
   - graph_tool lib available here -> https://graph-tool.skewed.de/ 
 
-### Main modules used to define and perform simulations are situated under /simulator
-In /simulator you will find some modules useful to define, perform as save simulations, as well as tester.py which contains functions used to perform tests
-and save it.
+### Main modules
+In /simulator you will find some modules useful to define, perform as save simulations, as well as tester.py which contains functions used to perform 
+and save tests.
 
 ### Runner scripts:
   1. Performs a single simulation on a graph with a specific configuration and creates a folder, named with an auto-generated simulation id, containing:
