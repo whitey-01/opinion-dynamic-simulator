@@ -110,36 +110,3 @@ def absorptionStateReached(g: gu.Graph):
         if g.vertex_properties["opinion"][vertex] == 0:
             return False
     return True
-
-
-#runs a simulation (same graph and configuration) multiple times
-#returns a list of SimulationResult objects
-def runMultipleSimulations(config: sc.SimulationConfigurator, repetitions: int):
-    simulations = []
-    g: gu.Graph = config.graph
-    for i in range(0,repetitions):
-        simulations.append(runSimulationOn(config))
-        print("simulation " + str(i) + " processed")
-    return simulations
-
-#save as xml the results of multiple simulations on the same configuration
-def saveMultipleSimulationsDataAsXML(config:sc.SimulationConfigurator, simulations: list, file_name, directory = ""):
-    simulations_file = "<simulations>"
-    simulations_file += "<simulations-config>" + config.configXMLSerializer() + "</simulations-config>"
-    average_rounds = 0;
-    for simulation in simulations:
-        simulation: sr.SimulationResult = simulation
-        simulation_tag = "<simulation>" \
-                            "<simulation-id>" + simulation.simulation_id + "</simulation-id>"  \
-                            "<simulation-rounds>" + str(simulation.rounds) + "</simulation-rounds>" \
-                         "</simulation>"
-        simulations_file += simulation_tag
-        average_rounds += simulation.rounds
-
-    average_rounds = int(average_rounds / len(simulations))
-    simulations_file += "<simulations-average-rounds>" + str(average_rounds) + "</simulations-average-rounds>"
-    simulations_file += "</simulations>"
-    dom = xml.dom.minidom.parseString(simulations_file)
-    pretty_xml_as_string = dom.toprettyxml()
-    with open(directory + file_name + ".xml", "w") as f:
-        f.write(pretty_xml_as_string)

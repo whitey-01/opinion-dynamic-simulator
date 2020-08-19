@@ -2,7 +2,6 @@ import graph_tool as gu
 from enum import Enum
 
 
-
 #defines two opinions update rules available
 class OpinionUpdateRule(Enum):
     VOTER_MODEL = "voter-rule"

@@ -14,7 +14,7 @@ SIMULATIONS_DIR = OUTPUT_DIR + "simulations/"
 #also provides methods to save these informations
 class SimulationResult:
     def __init__(self, evolutionMap: dict, simulation_configurator: sc.SimulationConfigurator):
-        self.simulation_id = ts = str(time.time()).replace(".","")
+        self.simulation_id = str(time.time()).replace(".","")
         self.rounds = len(evolutionMap) - 1
         self.evolutionMap = evolutionMap
         self.simulation_configurator = simulation_configurator
