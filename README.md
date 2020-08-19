@@ -6,7 +6,7 @@
   - graph_tool lib available here -> https://graph-tool.skewed.de/ 
 
 ### Main modules used to define and perform simulations are situated under /simulator
-In /simulator you will find some modules useful to define, perform as save simulations, as well as tester.py which contains functions used to perform a test
+In /simulator you will find some modules useful to define, perform as save simulations, as well as tester.py which contains functions used to perform tests
 and save it.
 
 ### Runner scripts:
