@@ -18,9 +18,9 @@ and save tests.
         (stored in output/simulations/<SIMULATION_ID>/evolution_imgs)
 
   2. Performs a test (multiple simulations on a fixed graph and configuration). Creates a folder,named with an auto-generated test id, file containing:
-    - a png rappresentation of the graph
-    - an xml rappresentation of the graph (at the end of the process)
-    - an xml file containing the output of the test (configuration, number of simulations executed, average rounds needed to reach the absorbing state)
+      - a png rappresentation of the graph
+      - an xml rappresentation of the graph (at the end of the process)
+      - an xml file containing the output of the test (configuration, number of simulations executed, average rounds needed to reach the absorbing state)
     
     
 Simulations are stored under *output/simulations/* \
