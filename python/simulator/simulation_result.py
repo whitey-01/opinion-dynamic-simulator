@@ -23,7 +23,7 @@ class SimulationResult:
     #generates a folder in output/simulations named with the samulation id
     #in this folder saves an xml file of the graph, an xml file of the simulation, a .png of the graph
     #and a folder containing png's of the graph showing the evolution of process
-    def saveSimulationData(self):
+    def saveSimulation(self):
 
         if not os.path.isdir(OUTPUT_DIR):
             os.mkdir(OUTPUT_DIR)
@@ -35,8 +35,7 @@ class SimulationResult:
         evolution_img_dir = simulation_dir + "evolution_imgs/"
         os.mkdir(evolution_img_dir)
 
-        self.saveConfigurationDataAsXML("s_" + self.simulation_id + "/")
-        self.saveSimulationOutputAsXML("s_" + self.simulation_id + "/")
+        self.exportSimulationOutputAsXML(dir=simulation_dir)
         self.original_graph.save(simulation_dir + "graph.xml")
 
         #0%, 25%, 50%, 75%, 100%
@@ -75,21 +74,17 @@ class SimulationResult:
                           bg_color=(0.09411764705882353, 0.11372549019607843, 0.15294117647058825,1))
 
 
-
-
-    def saveConfigurationDataAsXML(self, simulation_id_path = ""):
-        dom = xml.dom.minidom.parseString(self.simulation_configurator.configXMLSerializer())
-        pretty_xml_as_string = dom.toprettyxml()
-        with open(SIMULATIONS_DIR + simulation_id_path +  "configuration.xml", "w") as f:
-            f.write(pretty_xml_as_string)
-
-    def saveSimulationOutputAsXML(self, simulation_id_path):
+    def exportSimulationOutputAsXML(self, dir):
         simulations_file = "<simulation>"
-        rounds = "<simulation-rounds>" + str(self.rounds) + "</simulation-rounds>"
-        simulations_file = simulations_file + rounds + "</simulation>"
+        simulations_file += "<simulation-id>" + self.simulation_id + "</simulation-id>"
+        simulations_file += "<!-- Configuration used during the simulation -->"
+        simulations_file += "<simulation-config>" + self.simulation_configurator.configXMLSerializer() + "</simulation-config>"
+        simulations_file += "<!-- rounds needed to reach absorbing state -->"
+        simulations_file += "<simulation-rounds>" + str(self.rounds) + "</simulation-rounds>"
+        simulations_file += "</simulation>"
         dom = xml.dom.minidom.parseString(simulations_file)
         pretty_xml_as_string = dom.toprettyxml()
-        with open(SIMULATIONS_DIR + simulation_id_path +  "simulation_result.xml", "w") as f:
+        with open(dir + "simulation_result.xml", "w") as f:
             f.write(pretty_xml_as_string)
 
     def printSimulationData(self):
