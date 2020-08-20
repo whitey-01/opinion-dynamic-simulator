@@ -23,8 +23,8 @@ and save tests.
     - an xml file containing the output of the test (configuration, number of simulations executed, average rounds needed to reach the absorbing state)
     
     
-Simulations are stored under #*output/simulations/*#
-Tests are stored under #*output/test/*#
+Simulations are stored under *output/simulations/* \r
+Tests are stored under *output/test/*
 
 Opinion update rules available: 
 - Majority-Dynamic (update opinion of agent A based on the most diffused one among its neighbours)
