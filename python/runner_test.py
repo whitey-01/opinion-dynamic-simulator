@@ -6,10 +6,11 @@ import simulator.graph_utilities as gu
 #simple main that performs a test by running multiple simulation on a fixed config.
 ITERATIONS = 150
 
-graph = gu.generateHypercubeGraph(6)
+#graph = gu.generateHypercubeGraph(8)
+graph = gu.generateKCycleGraph(45)
 config = sc.SimulationConfigurator(graph=graph,
-                                   bias=0.33,
-                                   opinion_update_rule=sc.OpinionUpdateRule.VOTER_MODEL)
+                                   bias=0.30,
+                                   opinion_update_rule=sc.OpinionUpdateRule.MAJORITY_DYNAMICS)
 
 
 #returns a list of SimulationResult objects
