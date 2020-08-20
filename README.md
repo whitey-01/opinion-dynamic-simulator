@@ -22,7 +22,9 @@ and save tests.
       - an xml rappresentation of the graph (at the end of the process)
       - an xml file containing the output of the test (configuration, number of simulations executed, average rounds needed to reach the absorbing state)
     
-    
+\
+\
+\
 Simulations are stored under *output/simulations/* \
 Tests are stored under *output/test/*
 
