@@ -3,7 +3,7 @@
 
 ### REQUIRES:
   - Python (3.8 recommended)
-  - graph_tool lib available here -> https://graph-tool.skewed.de/ 
+  - graph_tool library ( 2.33 tested ) available here -> https://graph-tool.skewed.de/ 
 
 ### Main modules
 In /simulator you will find some modules useful to define, perform and save simulations, as well as tester.py which contains functions used to perform 
