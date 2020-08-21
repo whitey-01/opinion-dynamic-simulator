@@ -1,4 +1,4 @@
-# Opinion-Dynamic-Simulator 
+# Opinions-Dynamic-Simulator 
 ## Python-based software that simulates a binary opinion system where agents are biased towards a superior opinion ##
 
 ### REQUIRES:
