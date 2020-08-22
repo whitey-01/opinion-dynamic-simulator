@@ -24,7 +24,7 @@ and save tests.
     
 \
 Simulations are stored under *output/simulations/* \
-Tests are stored under *output/test/*
+Tests are stored under *output/tests/*
 
 # Opinion update rules availables: 
   - Majority-Dynamic (update opinion of agent A based on the most diffused one among its neighbours)
