@@ -10,7 +10,7 @@ In /simulator you will find some modules useful to define, perform and save simu
 and save tests.
 
 ### Runner scripts:
-  1. Performs a single simulation on a graph with a specific configuration and creates a folder, named with an auto-generated simulation id, containing:
+  1. Performs a single simulation on a graph with a specific configuration. Creates a folder, named with an auto-generated simulation id, containing:
       - a png rappresentation of the graph
       - an xml rappresentation of the graph (at the end of the process)
       - an xml file containing the output the simulation (configuration, number of rounds needed to reach the absorbing state)
