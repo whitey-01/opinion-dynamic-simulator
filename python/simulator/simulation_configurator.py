@@ -1,4 +1,4 @@
-import graph_tool as gu
+import graph_tool as gt
 from enum import Enum
 
 
@@ -10,17 +10,17 @@ class OpinionUpdateRule(Enum):
 #defines an object used to configure the simulation correctly
 #holds the graph and other config parameters
 class SimulationConfigurator:
-    def __init__(self, graph: gu.Graph, bias: float, opinion_update_rule: OpinionUpdateRule, comment: str = "OPTIONAL COMMENT"):
+    def __init__(self, graph: gt.Graph, bias: float, opinion_update_rule: OpinionUpdateRule, comment: str = "OPTIONAL COMMENT"):
         self.graph = graph
         if opinion_update_rule != OpinionUpdateRule.MAJORITY_DYNAMICS and opinion_update_rule != OpinionUpdateRule.VOTER_MODEL:
             raise Exception("Error:- Invalid opinion update rule!")
         self.opinion_update_rule = opinion_update_rule
-        #define how much agent are biased towards the dominant opinion
+        #defines how much agent are biased towards the dominant opinion
         self.bias = bias
         self.comment = comment
 
 
-    #return a xml string of the configurator
+    #returns a xml string of the configurator
     def configXMLSerializer(self):
         config = "<config>"
         comment = "<config-comment>" + self.comment + "</config-comment>"

@@ -1,4 +1,5 @@
-import simulator.graph_utilities as gu
+import simulator.graph_generator as gg
+import graph_tool.all as gt
 import simulator.simulation_configurator as sc
 import simulator.simulator as sim
 import xml.dom.minidom
@@ -13,7 +14,7 @@ TESTS_DIR = OUTPUT_DIR + "tests/"
 #returns a list of SimulationResult objects
 def runTest(config: sc.SimulationConfigurator, repetitions: int):
     simulations = []
-    g: gu.Graph = config.graph
+    g: gt.Graph = config.graph
     for i in range(0,repetitions):
         simulations.append(sim.runSimulationOn(config))
         print("simulation " + str(i) + " processed")
@@ -32,7 +33,7 @@ def saveTestDataAsXML(config:sc.SimulationConfigurator, simulations: list):
     os.mkdir(testDir)
 
     config.graph.save(testDir + "graph.xml")
-    gu.graph_draw(config.graph,
+    gt.graph_draw(config.graph,
                   vertex_text=config.graph.vertex_index,
                   vertex_text_color=(1, 1, 1, 1),
                   edge_color=(1, 1, 1, 0.7),

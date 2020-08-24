@@ -1,7 +1,7 @@
 import simulator.simulation_configurator as sc
 import time
 import os
-import simulator.graph_utilities as gu
+import graph_tool.all as gt
 import xml.dom.minidom
 
 
@@ -46,8 +46,8 @@ class SimulationResult:
         steps.append(self.rounds)
 
 
-        layout = gu.sfdp_layout(self.original_graph)
-        gu.graph_draw(self.original_graph,
+        layout = gt.sfdp_layout(self.original_graph)
+        gt.graph_draw(self.original_graph,
                       pos=layout,
                       vertex_text=self.original_graph.vertex_index,
                       vertex_text_color=(1, 1, 1, 1),
@@ -57,11 +57,11 @@ class SimulationResult:
                       adjust_aspect=False,
                       bg_color=(0.09411764705882353, 0.11372549019607843, 0.15294117647058825, 1))
 
-        # print graph evolution in .png
+        # prints graph evolution in .png
         for step in steps:
             opinion = self.evolutionMap[step][0]
             opinion_color = self.evolutionMap[step][1]
-            gu.graph_draw(self.original_graph,
+            gt.graph_draw(self.original_graph,
                           pos= layout,
                           vertex_color=(1,1,1,0),
                           vertex_fill_color=opinion_color,

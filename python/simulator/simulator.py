@@ -3,9 +3,10 @@ import os
 import time
 from enum import Enum
 import matplotlib.colors as mc
-import simulator.graph_utilities as gu
+import simulator.graph_generator as gg
 import simulator.simulation_result as sr
 import simulator.simulation_configurator as sc
+import graph_tool.all as gt
 import copy
 import xml.dom.minidom
 
@@ -23,7 +24,7 @@ def color_map(opinion):
 #returns an object containing the results of the simulaition
 def runSimulationOn(simulation_configurator: sc.SimulationConfigurator):
 
-    g: gu.Graph = simulation_configurator.graph
+    g: gt.Graph = simulation_configurator.graph
     # initializes the graph with the original opinion data
     g = init_properties(g)
 
@@ -34,7 +35,7 @@ def runSimulationOn(simulation_configurator: sc.SimulationConfigurator):
     rounds = 0
     while (not absorptionStateReached(g)):
         #select UAR a vertex from graph g
-        v: gu.Vertex = g.vertex(random.randint(0, len(g.get_vertices()) - 1))
+        v: gt.Vertex = g.vertex(random.randint(0, len(g.get_vertices()) - 1))
         #set its opinion to 1 with probability specified in the configurator
         if random.uniform(0, 1) <= simulation_configurator.bias:
             g.vertex_properties["opinion"][v] = 1
@@ -56,7 +57,7 @@ def runSimulationOn(simulation_configurator: sc.SimulationConfigurator):
 
 
 #initializes the graph with the original opinion data
-def init_properties(g: gu.Graph):
+def init_properties(g: gt.Graph):
     # sets properties used to keep trace of the opinion of each vertex
     opinion = g.new_vertex_property("int", 0)
     g.vertex_properties["opinion"] = opinion
@@ -72,16 +73,16 @@ def init_properties(g: gu.Graph):
 
 
 #simulates the Voter model update rule
-def simulateVoterModel(v: gu.Vertex, g: gu.Graph):
+def simulateVoterModel(v: gt.Vertex, g: gt.Graph):
     neighbors = list(v.all_neighbors())
-    u: gu.Vertex = random.choice(neighbors)
+    u: gt.Vertex = random.choice(neighbors)
     g.vertex_properties["opinion"][v] = g.vertex_properties["opinion"][u]
     g.vertex_properties["opinion_color"][v] = color_map(g.vertex_properties["opinion"][v])
     return g
 
 
 #simulates the Majority dynamics update rule
-def simulateMajorityDynamics(v: gu.Vertex, g: gu.Graph):
+def simulateMajorityDynamics(v: gt.Vertex, g: gt.Graph):
     opinion0_counter = 0
     opinion1_counter = 0
     for vertex in v.all_neighbors():
@@ -105,7 +106,7 @@ def simulateMajorityDynamics(v: gu.Vertex, g: gu.Graph):
 
 
 #checks if the process has reached the absorption state
-def absorptionStateReached(g: gu.Graph):
+def absorptionStateReached(g: gt.Graph):
     for vertex in g.vertices():
         if g.vertex_properties["opinion"][vertex] == 0:
             return False
