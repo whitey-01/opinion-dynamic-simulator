@@ -1,6 +1,5 @@
 import simulator.tester as ts
 import simulator.simulation_configurator as sc
-import simulator.simulation_result as sr
 import simulator.graph_generator as gg
 
 #simple main that performs a test by running multiple simulation on a fixed config.
