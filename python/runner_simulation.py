@@ -10,8 +10,8 @@ graph = gg.generateHypercubeGraph(3)
 #graph = gg.generateKCycleGraph(25)
 
 config = sc.SimulationConfigurator(graph=graph,
-                                    bias=0.3,
-                                    opinion_update_rule=sc.OpinionUpdateRule.MAJORITY_DYNAMICS)
+                                    bias=0.6,
+                                    opinion_update_rule=sc.OpinionUpdateRule.VOTER_MODEL)
 
 simulationResult: sr.SimulationResult = sim.runSimulationOn(config)
 
