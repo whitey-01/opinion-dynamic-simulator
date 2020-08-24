@@ -8,7 +8,6 @@ import simulator.graph_generator as gg
 #graph = gg.generateHypercubeGraph(6)
 #graph = gg.generateKCliqueGraph(28)
 #graph = gg.generateKCycleGraph(25)
-graph = gg.generateRandomGraph(30)
 
 config = sc.SimulationConfigurator(graph=graph,
                                     bias=0.3,
