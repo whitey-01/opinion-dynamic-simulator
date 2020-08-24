@@ -1,16 +1,16 @@
 import simulator.tester as ts
 import simulator.simulation_configurator as sc
 import simulator.simulation_result as sr
-import simulator.graph_utilities as gu
+import simulator.graph_generator as gg
 
 #simple main that performs a test by running multiple simulation on a fixed config.
-ITERATIONS = 150
+ITERATIONS = 50
 
-#graph = gu.generateHypercubeGraph(8)
-graph = gu.generateKCycleGraph(45)
+graph = gg.generateHypercubeGraph(9)
+#graph = gu.generateKCycleGraph(45)
 config = sc.SimulationConfigurator(graph=graph,
-                                   bias=0.30,
-                                   opinion_update_rule=sc.OpinionUpdateRule.MAJORITY_DYNAMICS)
+                                   bias=0.40,
+                                   opinion_update_rule=sc.OpinionUpdateRule.VOTER_MODEL)
 
 
 #returns a list of SimulationResult objects

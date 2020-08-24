@@ -1,17 +1,18 @@
 import simulator.simulator as sim
 import simulator.simulation_configurator as sc
 import simulator.simulation_result as sr
-import simulator.graph_utilities as gu
+import simulator.graph_generator as gg
 
 #simple main that performs a simulation of the process
 
-#graph = gu.generateHypercubeGraph(8)
-#graph = gu.generateKCliqueGraph(20)
-graph = gu.generateKCycleGraph(25)
+#graph = gg.generateHypercubeGraph(6)
+#graph = gg.generateKCliqueGraph(28)
+#graph = gg.generateKCycleGraph(25)
+graph = gg.generateRandomGraph(30)
 
 config = sc.SimulationConfigurator(graph=graph,
-                                    bias=0.45,
-                                    opinion_update_rule=sc.OpinionUpdateRule.VOTER_MODEL)
+                                    bias=0.3,
+                                    opinion_update_rule=sc.OpinionUpdateRule.MAJORITY_DYNAMICS)
 
 simulationResult: sr.SimulationResult = sim.runSimulationOn(config)
 
