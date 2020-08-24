@@ -16,3 +16,5 @@ python/simulator/__pycache__/graph_generator.cpython-38.pyc
 python/simulator/__pycache__/simulation_configurator.cpython-38.pyc
 python/simulator/__pycache__/simulation_result.cpython-38.pyc
 python/simulator/__pycache__/simulator.cpython-38.pyc
+*.xml
+*.png
