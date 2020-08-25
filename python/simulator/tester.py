@@ -67,3 +67,5 @@ def saveTestDataAsXML(config: sc.SimulationConfigurator, simulations: list):
     pretty_xml_as_string = dom.toprettyxml()
     with open(testDir + "test_result.xml", "w") as f:
         f.write(pretty_xml_as_string)
+
+    print("Test saved with ID " + testID)
