@@ -52,10 +52,9 @@ def saveTestDataAsXML(config: sc.SimulationConfigurator, simulations: list):
     for simulation in simulations:
         simulation: sr.SimulationResult = simulation
         simulation_tag = "<simulation>" \
-                         "<simulation-id>" + simulation.simulation_id + "</simulation-id>" \
-                                                                        "<simulation-rounds>" + str(
-            simulation.rounds) + "</simulation-rounds>" \
-                                 "</simulation>"
+                            "<simulation-id>" + simulation.simulation_id + "</simulation-id>" \
+                            "<simulation-rounds>" + str(simulation.rounds) + "</simulation-rounds>" \
+                         "</simulation>"
         test += simulation_tag
         average_rounds += simulation.rounds
 
