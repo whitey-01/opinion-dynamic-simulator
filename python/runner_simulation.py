@@ -5,7 +5,7 @@ import python.simulator.graph_generator as gg
 
 # simple main that performs a simulation of the process
 
-graph = gg.generateHypercubeGraph(3)
+graph = gg.generateHypercubeGraph(4)
 # graph = gg.generateKCliqueGraph(28)
 # graph = gg.generateKCycleGraph(25)
 
