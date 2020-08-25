@@ -87,6 +87,6 @@ class SimulationResult:
         print("")
         print("-------Simulation-------")
         print("Simulation with id " + self.simulation_id)
-        print("The opinion update rule choosen was " + self.simulation_configurator.opinion_update_rule.value)
+        print("The opinion update rule chosen was " + self.simulation_configurator.opinion_update_rule.value)
         print("The bias towards the dominant opinion was " + str(self.simulation_configurator.bias))
         print("Reaching the absorption state took " + str(self.rounds) + " rounds")
