@@ -1,28 +1,29 @@
-import simulator.graph_generator as gg
 import graph_tool.all as gt
-import simulator.simulation_configurator as sc
-import simulator.simulator as sim
+import python.simulator.simulation_configurator as sc
+import python.simulator.simulator as sim
+import python.simulator.simulation_result as sr
 import xml.dom.minidom
 import os
 import time
 
-#a Test is an execution of multiple simulation on the same graph and configuration
+# a Test is an execution of multiple simulation on the same graph and configuration
 
 OUTPUT_DIR = "output/"
 TESTS_DIR = OUTPUT_DIR + "tests/"
 
-#returns a list of SimulationResult objects
+
+# returns a list of SimulationResult objects
 def runTest(config: sc.SimulationConfigurator, repetitions: int):
     simulations = []
     g: gt.Graph = config.graph
-    for i in range(0,repetitions):
+    for i in range(0, repetitions):
         simulations.append(sim.runSimulationOn(config))
         print("simulation " + str(i) + " processed")
     return simulations
 
 
-#save as xml the results of multiple simulations on the same configuration
-def saveTestDataAsXML(config:sc.SimulationConfigurator, simulations: list):
+# save as xml the results of multiple simulations on the same configuration
+def saveTestDataAsXML(config: sc.SimulationConfigurator, simulations: list):
     if not os.path.isdir(OUTPUT_DIR):
         os.mkdir(OUTPUT_DIR)
     if not os.path.isdir(TESTS_DIR):
@@ -48,13 +49,14 @@ def saveTestDataAsXML(config:sc.SimulationConfigurator, simulations: list):
     test += "<test-repetitions>" + str(len(simulations)) + "</test-repetitions>"
     test += "<!-- Test configuration shared by simulations -->"
     test += "<test-config>" + config.configXMLSerializer() + "</test-config>"
-    average_rounds = 0;
+    average_rounds = 0
     for simulation in simulations:
         simulation: sr.SimulationResult = simulation
         simulation_tag = "<simulation>" \
-                            "<simulation-id>" + simulation.simulation_id + "</simulation-id>"  \
-                            "<simulation-rounds>" + str(simulation.rounds) + "</simulation-rounds>" \
-                         "</simulation>"
+                         "<simulation-id>" + simulation.simulation_id + "</simulation-id>" \
+                                                                        "<simulation-rounds>" + str(
+            simulation.rounds) + "</simulation-rounds>" \
+                                 "</simulation>"
         test += simulation_tag
         average_rounds += simulation.rounds
 
