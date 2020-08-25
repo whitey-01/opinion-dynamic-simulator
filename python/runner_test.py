@@ -3,13 +3,13 @@ import python.simulator.simulation_configurator as sc
 import python.simulator.graph_generator as gg
 
 # simple main that performs a test by running multiple simulation on a fixed config.
-ITERATIONS = 50
+ITERATIONS = 75
 
-graph = gg.generateHypercubeGraph(9)
+graph = gg.generateHypercubeGraph(6)
 # graph = gu.generateKCycleGraph(45)
 config = sc.SimulationConfigurator(graph=graph,
-                                   bias=0.40,
-                                   opinion_update_rule=sc.OpinionUpdateRule.VOTER_MODEL)
+                                   bias=0.45,
+                                   opinion_update_rule=sc.OpinionUpdateRule.MAJORITY_DYNAMICS)
 
 # returns a list of SimulationResult objects
 simulations = ts.runTest(config, ITERATIONS)
