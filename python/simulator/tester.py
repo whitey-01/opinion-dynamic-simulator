@@ -15,7 +15,6 @@ TESTS_DIR = OUTPUT_DIR + "tests/"
 # returns a list of SimulationResult objects
 def runTest(config: sc.SimulationConfigurator, repetitions: int):
     simulations = []
-    g: gt.Graph = config.graph
     for i in range(0, repetitions):
         simulations.append(sim.runSimulationOn(config))
         print("simulation " + str(i) + " processed")
