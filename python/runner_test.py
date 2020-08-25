@@ -1,6 +1,6 @@
-import simulator.tester as ts
-import simulator.simulation_configurator as sc
-import simulator.graph_generator as gg
+import python.simulator.tester as ts
+import python.simulator.simulation_configurator as sc
+import python.simulator.graph_generator as gg
 
 #simple main that performs a test by running multiple simulation on a fixed config.
 ITERATIONS = 50
