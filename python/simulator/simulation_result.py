@@ -8,6 +8,7 @@ OUTPUT_DIR = "output/"
 SIMULATIONS_DIR = OUTPUT_DIR + "simulations/"
 
 
+
 # holds the information produced during the simulation
 # also provides methods to save these information
 class SimulationResult:
