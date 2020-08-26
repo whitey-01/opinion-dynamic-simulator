@@ -2,7 +2,9 @@ import graph_tool as gt
 from enum import Enum
 
 
-# defines two opinions update rules available
+# module used to define how a simulation must be configured
+
+# defines the opinions update rules available for the configurator
 class OpinionUpdateRule(Enum):
     VOTER_MODEL = "voter-rule"
     MAJORITY_DYNAMICS = "majority-dynamics"

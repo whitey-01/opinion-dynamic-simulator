@@ -11,7 +11,7 @@ def addVerticesTo(graph: gt.Graph, vertices_num: int):
 
 
 # generates an hypercube graph given a distance d
-# the hypercube is built using bitfix idea
+# the hypercube is built using bit-fix idea
 def generateHypercubeGraph(d: int):
     vertices_num = pow(2, d)
     g = gt.Graph(directed=False)
@@ -27,7 +27,7 @@ def generateHypercubeGraph(d: int):
         # also writes this representation to the vertex property
         binaryProperty[vertex] = binaryRepresentation
 
-        # using bitFix idea, finds the neighbours of the vertex by flipping every time a different bit
+        # using bit-fix idea, finds the neighbours of the vertex by flipping every time a different bit
         # from its binary representation. For every of the d neighbours, re-calculates the decimal index
         # from their binary representation, used for indexing them vertex in the graph.
         bitPos = 0
@@ -48,12 +48,12 @@ def generateHypercubeGraph(d: int):
 
 
 # generates a k-clique given the number of vertices
-# wraps graph_tool function in a custom one to maintain module consistency
+# wraps graph_tool function in a custom one to maintain module integrity
 def generateKCliqueGraph(vertices_num: int):
     return gt.complete_graph(vertices_num)
 
 
 # generates a k-cycle given the number of vertices
-# wraps graph_tool function in a custom one to maintain module consistency
+# wraps graph_tool function in a custom one to maintain module integrity
 def generateKCycleGraph(vertices_num: int):
     return gt.circular_graph(vertices_num)

@@ -8,6 +8,8 @@ OUTPUT_DIR = "output/"
 SIMULATIONS_DIR = OUTPUT_DIR + "simulations/"
 
 
+# module that defines the simulation results and provides methods to output those results
+
 # holds the information produced during the simulation
 # also provides methods to save these information
 class SimulationResult:

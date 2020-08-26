@@ -6,6 +6,8 @@ import graph_tool.all as gt
 import copy
 
 
+# module that performs a simulation and holds the implementation of the opinion-update rules
+
 # return correct color for a vertex based on its opinion
 def color_map(opinion):
     if opinion == 0:
@@ -24,11 +26,10 @@ def runSimulationOn(simulation_configurator: sc.SimulationConfigurator):
     g = init_properties(g)
 
     # map that stores the evolution of the graph during rounds saving its properties in a tuple
-    evolutionMap = {}
-    evolutionMap[0] = (copy.copy(g.vertex_properties["opinion"]), copy.copy(g.vertex_properties["opinion_color"]))
+    evolutionMap = {0: (copy.copy(g.vertex_properties["opinion"]), copy.copy(g.vertex_properties["opinion_color"]))}
 
     rounds = 0
-    while (not absorptionStateReached(g)):
+    while not absorptionStateReached(g):
         # select UAR a vertex from graph g
         v: gt.Vertex = g.vertex(random.randint(0, len(g.get_vertices()) - 1))
         # set its opinion to 1 with probability specified in the configurator
@@ -46,7 +47,7 @@ def runSimulationOn(simulation_configurator: sc.SimulationConfigurator):
         rounds += 1
 
         evolutionMap[rounds] = (
-        copy.copy(g.vertex_properties["opinion"]), copy.copy(g.vertex_properties["opinion_color"]))
+            copy.copy(g.vertex_properties["opinion"]), copy.copy(g.vertex_properties["opinion_color"]))
 
     # return an object containing the information produced during the simulation
     return sr.SimulationResult(evolutionMap, simulation_configurator)

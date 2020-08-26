@@ -6,7 +6,8 @@ import xml.dom.minidom
 import os
 import time
 
-# a Test is an execution of multiple simulation on the same graph and configuration
+# module that define what is a test. A est is an execution of multiple simulations on the same graph and configuration
+# also provides method to output the test results
 
 OUTPUT_DIR = "output/"
 TESTS_DIR = OUTPUT_DIR + "tests/"
@@ -52,9 +53,10 @@ def saveTestDataAsXML(config: sc.SimulationConfigurator, simulations: list):
     for simulation in simulations:
         simulation: sr.SimulationResult = simulation
         simulation_tag = "<simulation>" \
-                            "<simulation-id>" + simulation.simulation_id + "</simulation-id>" \
-                            "<simulation-rounds>" + str(simulation.rounds) + "</simulation-rounds>" \
-                         "</simulation>"
+                         "<simulation-id>" + simulation.simulation_id + "</simulation-id>" \
+                                                                        "<simulation-rounds>" + str(
+            simulation.rounds) + "</simulation-rounds>" \
+                                 "</simulation>"
         test += simulation_tag
         average_rounds += simulation.rounds
 
