@@ -4,12 +4,6 @@ import random
 
 # Hub that holds some native graph_tool topology generator (wrapped) and some custom additions like hypercubes
 
-# adds vertices to a graph taken in input. Then returns it
-def addVerticesTo(graph: gt.Graph, vertices_num: int):
-    for i in range(0, vertices_num):
-        graph.add_vertex()
-    return graph
-
 
 # generates an hypercube graph given a distance d
 # the hypercube is built using bit-fix idea
@@ -18,7 +12,7 @@ def generateHypercubeGraph(d: int):
     g = gt.Graph(directed=False)
     # creates a new vertex property to indicate the vertex using its binary representation
     binaryProperty = g.new_vertex_property("string")
-    g = addVerticesTo(g, vertices_num)
+    g.add_vertex(vertices_num)
 
     # time to add edges
     for vertex in g.vertices():
@@ -64,7 +58,7 @@ def generateKCycleGraph(vertices_num: int):
 # generates a random, non directed, connected graph
 def generateConnectedRandomGraph(vertices_num: int):
     g = gt.Graph(directed=False)
-    g = addVerticesTo(g, vertices_num)
+    g.add_vertex(vertices_num)
 
     while not isConnected(g):
         v1: gt.Vertex = random.choice(list(g.vertices()))
