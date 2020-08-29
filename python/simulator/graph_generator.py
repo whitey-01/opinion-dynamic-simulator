@@ -60,40 +60,14 @@ def generateKCycleGraph(vertices_num: int):
     return gt.circular_graph(vertices_num)
 
 
-"""
-
---------------- WIP --------------------
-
 # generates a random, non directed, connected graph
-def generateRandomGraph(vertices_num: int, average_deg: int):
+def generateConnectedRandomGraph(vertices_num: int):
     g = gt.Graph(directed=False)
     g = addVerticesTo(g, vertices_num)
 
-    while average_deg > averageDegOf(g):
-        v1: gt.Vertex = random.choice(list(g.vertices()))
-        v2: gt.Vertex = random.choice(list(g.vertices()))
-
-        if g.edge(v1, v2) is None:
-            g.add_edge(v1, v2)
-
+    for vertex in g.vertices():
+        v: gt.Vertex = random.choice(list(g.vertices()))
+        while g.vertex_index[v] == g.vertex_index[vertex] or g.edge(vertex, v) is not None:
+            v = random.choice(list(g.vertices()))
+        g.add_edge(vertex, v)
     return g
-
-
-# returns the average degree of a graph
-def averageDegOf(g: gt.Graph):
-    avg = 0
-    for vertex in g.vertices():
-        vertex: gt.Vertex = vertex
-        avg += len(list(vertex.all_neighbours()))
-    return int(avg / len(list(g.vertices())))
-
-
-# returns True if none of the vertices has total degree 0
-def isConnected(g: gt.Graph):
-    for vertex in g.vertices():
-        vertex: gt.Vertex = vertex
-        if vertex.out_degree() + vertex.in_degree() == 0:
-            return False
-    return True
-
-"""
