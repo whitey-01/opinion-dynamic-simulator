@@ -64,7 +64,7 @@ def generateKCycleGraph(vertices_num: int):
 
 --------------- WIP --------------------
 
-# generates a random, non directed graph
+# generates a random, non directed graph connected
 def generateRandomGraph(vertices_num: int, average_deg: int):
     g = gt.Graph(directed=False)
     g = addVerticesTo(g, vertices_num)
