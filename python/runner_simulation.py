@@ -24,3 +24,6 @@ simulationResult.printSimulationData()
 # save images of the graph showing the diffusion of the opinion at rounds: 0, 25%, 50%, 75%, 100%
 # save in output/simulations
 simulationResult.saveSimulation()
+
+
+asas
