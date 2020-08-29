@@ -60,14 +60,29 @@ def generateKCycleGraph(vertices_num: int):
     return gt.circular_graph(vertices_num)
 
 
+# -------- W I P -------------------------------------------------------------------------
 # generates a random, non directed, connected graph
 def generateConnectedRandomGraph(vertices_num: int):
     g = gt.Graph(directed=False)
     g = addVerticesTo(g, vertices_num)
 
-    for vertex in g.vertices():
-        v: gt.Vertex = random.choice(list(g.vertices()))
-        while g.vertex_index[v] == g.vertex_index[vertex] or g.edge(vertex, v) is not None:
-            v = random.choice(list(g.vertices()))
-        g.add_edge(vertex, v)
+    while not isConnected(g):
+        v1: gt.Vertex = random.choice(list(g.vertices()))
+        v2: gt.Vertex = random.choice(list(g.vertices()))
+        while g.vertex_index[v1] == g.vertex_index[v2] or g.edge(v1, v2) is not None:
+            v2 = random.choice(list(g.vertices()))
+        g.add_edge(v1, v2)
     return g
+
+
+# return true if the graph is connected
+def isConnected(g):
+    for v1 in g.vertices():
+        for v2 in g.vertices():
+            if g.vertex_index[v1] != g.vertex_index[v2]:
+                node: list
+                edges: list
+                edges_num = len(list(gt.shortest_path(g, v1, v2)[1]))
+                if edges_num == 0:
+                    return False
+    return True

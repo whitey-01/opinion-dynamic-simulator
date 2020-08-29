@@ -6,12 +6,14 @@ import python.simulator.graph_generator as gg
 # simple main that performs a simulation of the process
 
 # graph = gg.generateHypercubeGraph(9)
-graph = gg.generateKCliqueGraph(15)
+# graph = gg.generateKCliqueGraph(15)
 # graph = gg.generateKCycleGraph(25)
+graph = gg.generateConnectedRandomGraph(25)
+
 
 config = sc.SimulationConfigurator(graph=graph,
-                                   bias=0.37,
-                                   opinion_update_rule=sc.OpinionUpdateRule.MAJORITY_DYNAMICS)
+                                   bias=0.25,
+                                   opinion_update_rule=sc.OpinionUpdateRule.VOTER_MODEL)
 
 simulationResult: sr.SimulationResult = sim.runSimulationOn(config)
 
