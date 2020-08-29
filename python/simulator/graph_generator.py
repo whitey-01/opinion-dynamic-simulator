@@ -1,4 +1,5 @@
 import graph_tool.all as gt
+import random
 
 
 # Hub that holds some native graph_tool topology generator (wrapped) and some custom additions like hypercubes
@@ -57,3 +58,42 @@ def generateKCliqueGraph(vertices_num: int):
 # wraps graph_tool function in a custom one to maintain module integrity
 def generateKCycleGraph(vertices_num: int):
     return gt.circular_graph(vertices_num)
+
+
+"""
+
+--------------- WIP --------------------
+
+# generates a random, non directed graph
+def generateRandomGraph(vertices_num: int, average_deg: int):
+    g = gt.Graph(directed=False)
+    g = addVerticesTo(g, vertices_num)
+
+    while average_deg > averageDegOf(g):
+        v1: gt.Vertex = random.choice(list(g.vertices()))
+        v2: gt.Vertex = random.choice(list(g.vertices()))
+
+        if g.edge(v1, v2) is None:
+            g.add_edge(v1, v2)
+
+    return g
+
+
+# returns the average degree of a graph
+def averageDegOf(g: gt.Graph):
+    avg = 0
+    for vertex in g.vertices():
+        vertex: gt.Vertex = vertex
+        avg += len(list(vertex.all_neighbours()))
+    return int(avg / len(list(g.vertices())))
+
+
+# returns True if none of the vertices has total degree 0
+def isConnected(g: gt.Graph):
+    for vertex in g.vertices():
+        vertex: gt.Vertex = vertex
+        if vertex.out_degree() + vertex.in_degree() == 0:
+            return False
+    return True
+
+"""
