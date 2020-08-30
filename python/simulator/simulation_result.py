@@ -36,6 +36,8 @@ class SimulationResult:
         os.mkdir(evolution_img_dir)
 
         self.exportSimulationOutputAsXML(dir=simulation_dir)
+
+        # exports graph structure  in xml: key0 and key1 are respectively opinion property and opinion color property
         self.original_graph.save(simulation_dir + "graph.xml")
 
         # 0%, 25%, 50%, 75%, 100%
