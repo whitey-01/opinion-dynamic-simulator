@@ -74,8 +74,6 @@ def isConnected(g):
     for v1 in g.vertices():
         for v2 in g.vertices():
             if g.vertex_index[v1] != g.vertex_index[v2]:
-                node: list
-                edges: list
                 edges_num = len(list(gt.shortest_path(g, v1, v2)[1]))
                 if edges_num == 0:
                     return False
