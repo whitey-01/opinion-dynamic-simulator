@@ -5,6 +5,7 @@ import python.simulator.simulation_result as sr
 import xml.dom.minidom
 import os
 import time
+import math
 
 # module that define what is a test. A est is an execution of multiple simulations on the same graph and configuration
 # also provides method to output the test results
@@ -50,6 +51,7 @@ def saveTestDataAsXML(config: sc.SimulationConfigurator, simulations: list):
     test += "<!-- Test configuration shared by simulations -->"
     test += "<test-config>" + config.configXMLSerializer() + "</test-config>"
     average_rounds = 0
+    test += "<test-simulations>"
     for simulation in simulations:
         simulation: sr.SimulationResult = simulation
         simulation_tag = "<simulation>" \
@@ -59,10 +61,12 @@ def saveTestDataAsXML(config: sc.SimulationConfigurator, simulations: list):
                                  "</simulation>"
         test += simulation_tag
         average_rounds += simulation.rounds
-
+    test += "</test-simulations>"
     average_rounds = int(average_rounds / len(simulations))
     test += "<!-- average rounds needed to reach absorbing state -->"
     test += "<test-average-rounds>" + str(average_rounds) + "</test-average-rounds>"
+    test += "<!-- standard deviation from the mean -->"
+    test += "<test-standard-deviation>" + str(calcStandardDeviation(simulations, average_rounds)) + "</test-standard-deviation>"
     test += "</test>"
     dom = xml.dom.minidom.parseString(test)
     pretty_xml_as_string = dom.toprettyxml()
@@ -70,3 +74,14 @@ def saveTestDataAsXML(config: sc.SimulationConfigurator, simulations: list):
         f.write(pretty_xml_as_string)
 
     print("Test saved with ID " + testID)
+
+
+# calculates the standard deviation using variance
+def calcStandardDeviation(simulations: list, mean: int):
+    variance = 0
+    for simulation in simulations:
+        simulation: sr.SimulationResult = simulation
+        variance += math.pow((simulation.rounds - mean), 2)
+
+    variance = variance / (len(simulations) - 1)
+    return math.sqrt(variance)
