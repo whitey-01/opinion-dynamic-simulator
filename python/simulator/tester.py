@@ -24,7 +24,6 @@ def runTest(config: sc.SimulationConfigurator, repetitions: int):
 
 
 # save as xml the results of multiple simulations on the same configuration
-# on big graphs (1024+ nodes) drawing the graph can take quite some time and require a lot of power
 def saveTestDataAsXML(config: sc.SimulationConfigurator, simulations: list, draw: bool = False):
     if not os.path.isdir(OUTPUT_DIR):
         os.mkdir(OUTPUT_DIR)
