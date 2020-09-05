@@ -20,7 +20,7 @@ and save tests.
   2. Performs a test (multiple simulations on a fixed graph and configuration). Creates a folder, named with an auto-generated test id, file containing:
       - a png representation of the graph
       - an xml representation of the graph (at the end of the process)
-      - an xml file containing the output of the test (configuration, number of simulations executed, average rounds needed to reach the absorbing state)
+      - an xml file containing the output of the test (configuration, number of simulations executed, average rounds needed to reach the absorbing state, standard           deviation)
     
 \
 Simulations are stored under *output/simulations/* \
