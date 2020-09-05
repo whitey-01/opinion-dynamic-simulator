@@ -24,7 +24,8 @@ def runTest(config: sc.SimulationConfigurator, repetitions: int):
 
 
 # save as xml the results of multiple simulations on the same configuration
-def saveTestDataAsXML(config: sc.SimulationConfigurator, simulations: list):
+# on big graphs (1024+ nodes) drawing the graph can take quite some time and require a lot of power
+def saveTestDataAsXML(config: sc.SimulationConfigurator, simulations: list, draw: bool = False):
     if not os.path.isdir(OUTPUT_DIR):
         os.mkdir(OUTPUT_DIR)
     if not os.path.isdir(TESTS_DIR):
@@ -35,14 +36,15 @@ def saveTestDataAsXML(config: sc.SimulationConfigurator, simulations: list):
     os.mkdir(testDir)
 
     config.graph.save(testDir + "graph.xml")
-    gt.graph_draw(config.graph,
-                  vertex_text=config.graph.vertex_index,
-                  vertex_text_color=(1, 1, 1, 1),
-                  edge_color=(1, 1, 1, 0.7),
-                  output=testDir + "graph.png",
-                  output_size=(1600, 1600),
-                  adjust_aspect=False,
-                  bg_color=(0.09411764705882353, 0.11372549019607843, 0.15294117647058825, 1))
+    if draw:
+        gt.graph_draw(config.graph,
+                      vertex_text=config.graph.vertex_index,
+                      vertex_text_color=(1, 1, 1, 1),
+                      edge_color=(1, 1, 1, 0.7),
+                      output=testDir + "graph.png",
+                      output_size=(1600, 1600),
+                      adjust_aspect=False,
+                      bg_color=(0.09411764705882353, 0.11372549019607843, 0.15294117647058825, 1))
 
     test = "<test>"
     test += "<test-id>" + testID + "</test-id>"

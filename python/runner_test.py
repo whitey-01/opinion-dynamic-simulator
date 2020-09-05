@@ -5,14 +5,16 @@ import python.simulator.graph_generator as gg
 # simple main that performs a test by running multiple simulation on a fixed config.
 ITERATIONS = 100
 
-graph = gg.generateHypercubeGraph(6)
-# graph = gu.generateKCycleGraph(45)
+graph = gg.generateHypercubeGraph(d=10)
+# graph = gg.generateKCycleGraph(vertices_num=4096)
 config = sc.SimulationConfigurator(graph=graph,
                                    bias=0.5,
-                                   opinion_update_rule=sc.OpinionUpdateRule.MAJORITY_DYNAMICS)
+                                   opinion_update_rule=sc.OpinionUpdateRule.MAJORITY_DYNAMICS,
+                                   comment="Ipercubo 1024 nodi")
 
 # returns a list of SimulationResult objects
 simulations = ts.runTest(config, ITERATIONS)
 
 # file_name without extension, separated optional param directory
-ts.saveTestDataAsXML(config=config, simulations=simulations)
+# on big graphs (1024+ nodes) drawing the graph can take quite some time and require a lot of power
+ts.saveTestDataAsXML(config=config, simulations=simulations, draw=False)
