@@ -7,16 +7,18 @@ import python.simulator.graph_generator as gg
 # simple main that performs a test by running multiple simulation on a fixed config.
 ITERATIONS = 100
 
-graph = gg.generateHypercubeGraph(d=11)
+graph = gg.generateHypercubeGraph(d=12)
 
 simulationConfigurator = sc.SimulationConfigurator(graph=graph,
                                                    bias=0.5,
                                                    opinion_update_rule=sc.OpinionUpdateRule.MAJORITY_DYNAMICS,
-                                                   comment="Ipercubo 2048 nodi")
+                                                   comment="Ipercubo 4096 nodi")
 
 testConfigurator = tc.TestConfigurator(simulationConfigurator=simulationConfigurator, iterations=ITERATIONS)
+
+# returns a list of dicts containing simulations id and rounds
 results = ts.runTest(testConfigurator=testConfigurator)
 
-testResult = tr.TestResult(testConfigurator=testConfigurator,results=results)
-testResult.saveTest(draw=True)
+testResult = tr.TestResult(testConfigurator=testConfigurator, results=results)
+testResult.saveTest(draw=False)
 

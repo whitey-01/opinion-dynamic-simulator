@@ -11,6 +11,7 @@ def runTest(testConfigurator: tc.TestConfigurator):
     for i in range(0, iterations):
         simulation: sr.SimulationResult = sim.runSimulationOn(testConfigurator.simulationConfigurator)
         temp = {"simulation_id": simulation.simulation_id, "simulation_rounds": simulation.rounds}
+        simulation = None
         simulations.append(temp)
         print("simulation " + str(i) + " processed")
     return simulations
