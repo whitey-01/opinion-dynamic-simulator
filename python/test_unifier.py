@@ -1,5 +1,5 @@
 import xml.etree.ElementTree as et
-import os as os
+import os
 import math
 
 # simple module that allows you to unifies different tests in one.
@@ -19,9 +19,12 @@ def getListOfTest():
 class TestUnifier:
 
     # if auto_retrieve_tests is true then you don't need to pass tests list
+
+    # WARNING:- if you use auto retrieving, make sure that all tests in test directory
+    # are made on the same configuration or will have unusable data
     def __init__(self, auto_retrieve_tests: bool = True, my_tests: list = None):
         if auto_retrieve_tests and my_tests is None:
-            print("Auto-retrieving tests\n")
+            print("Auto-retrieving tests from " + TESTS_DIR + "\n")
             self.tests = getListOfTest()
         else:
             print("Using passed tests list")
@@ -53,6 +56,8 @@ class TestUnifier:
         return mean, stdDeviation
 
 
-# mean, deviation = TestUnifier(auto_retrieve_tests=True).obtainMeanAndDeviation()
+# auto-retrieving tests example
+# mean, deviation = TestUnifier().obtainMeanAndDeviation()
 
+# passing data manually example
 mean, deviation = TestUnifier(my_tests=["t_15996928933660312"]).obtainMeanAndDeviation()
