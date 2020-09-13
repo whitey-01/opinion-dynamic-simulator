@@ -30,24 +30,33 @@ class TestUnifier:
             print("Auto-retrieving tests from " + TESTS_DIR + "\n")
             self.tests = getListOfTest()
         elif testIDsList:
-            print("Using passed tests list\n")
+            print("Using provided tests list\n")
             self.tests = []
             for id in testIDsList:
                 self.tests.append(TESTS_DIR + "t_" + id)
         else:
-            raise Exception("Error:- Invalid initializer. Either the list in NOT empty or auto-retrieve is left to True")
+            raise Exception(
+                "Error:- Invalid initializer. Either the list in NOT empty or auto-retrieve is left to True")
 
     def obtainMeanAndDeviation(self):
         rounds_list = list()
         mean = 0
         count = 0
         for test in self.tests:
-            root = et.parse(test + "/test_result.xml").getroot()
+            try:
+                root = et.parse(test + "/test_result.xml").getroot()
+            except:
+                print("Test " + test + " not found. Ignoring it.")
+                continue
 
             for simulation in root.iter("simulation"):
                 mean += int(simulation.find("simulation-rounds").text)
                 rounds_list.append(int(simulation.find("simulation-rounds").text))
                 count += 1
+        if mean == 0:
+            print("None of the file provided has been found")
+            return 0, 0
+
         mean = round(mean / count, 2)
 
         variance = 0
@@ -62,7 +71,7 @@ class TestUnifier:
 
 
 # auto-retrieving tests example
-mean, deviation = TestUnifier().obtainMeanAndDeviation()
+# mean, deviation = TestUnifier().obtainMeanAndDeviation()
 
-# passing data manually example
-# mean, deviation = TestUnifier(testIDsList=["15996928933660312", "15997520452320051"]).obtainMeanAndDeviation()
+# Providing data manually example
+mean, deviation = TestUnifier(testIDsList=["12343242345345"]).obtainMeanAndDeviation()

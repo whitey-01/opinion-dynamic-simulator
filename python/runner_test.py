@@ -5,7 +5,7 @@ import python.simulator.simulation_configurator as sc
 import python.simulator.graph_generator as gg
 
 # simple main that performs a test by running multiple simulation on a fixed config.
-ITERATIONS = 100
+ITERATIONS = 10
 
 # graph = gg.generateHypercubeGraph(d=12)
 graph = gg.generateKCliqueGraph(4096)
