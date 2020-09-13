@@ -21,6 +21,9 @@ and save tests.
       - a png representation of the graph
       - an xml representation of the graph (at the end of the process)
       - an xml file containing the output of the test (configuration, number of simulations executed, average rounds needed to reach the absorbing state, standard           deviation)
+      
+ 33. Unifies multiple tests , recalculating mean and standard deviation. Used after a test has been split in multiple tests.
+   
     
 \
 Simulations are stored under *output/simulations/* \
