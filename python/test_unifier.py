@@ -4,6 +4,9 @@ import math
 
 # simple module that allows you to unifies different tests in one.
 
+
+# WIP:- recreate new XML with references to original test files
+
 OUTPUT_DIR = "output/"
 TESTS_DIR = OUTPUT_DIR + "tests/"
 
@@ -22,15 +25,17 @@ class TestUnifier:
 
     # WARNING:- if you use auto retrieving, make sure that all tests in test directory
     # are made on the same configuration or will have unusable data
-    def __init__(self, auto_retrieve_tests: bool = True, my_tests: list = None):
-        if auto_retrieve_tests and my_tests is None:
+    def __init__(self, auto_retrieve_tests: bool = True, testIDsList: list = None):
+        if auto_retrieve_tests and not testIDsList:
             print("Auto-retrieving tests from " + TESTS_DIR + "\n")
             self.tests = getListOfTest()
-        else:
-            print("Using passed tests list")
+        elif testIDsList:
+            print("Using passed tests list\n")
             self.tests = []
-            for test in my_tests:
-                self.tests.append(TESTS_DIR + test)
+            for id in testIDsList:
+                self.tests.append(TESTS_DIR + "t_" + id)
+        else:
+            raise Exception("Error:- Invalid initializer. Either the list in NOT empty or auto-retrieve is left to True")
 
     def obtainMeanAndDeviation(self):
         rounds_list = list()
@@ -57,7 +62,7 @@ class TestUnifier:
 
 
 # auto-retrieving tests example
-# mean, deviation = TestUnifier().obtainMeanAndDeviation()
+mean, deviation = TestUnifier().obtainMeanAndDeviation()
 
 # passing data manually example
-mean, deviation = TestUnifier(my_tests=["t_15996928933660312"]).obtainMeanAndDeviation()
+# mean, deviation = TestUnifier(testIDsList=["15996928933660312", "15997520452320051"]).obtainMeanAndDeviation()
