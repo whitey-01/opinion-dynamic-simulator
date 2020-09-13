@@ -16,11 +16,13 @@ def getListOfTest():
     return tests
 
 
-# if obtainAllTest then you don't need to pass tests list
+# if obtainAllTest is true then you don't need to pass tests list
 def obtainMeanAndDeviationFrom(obtainAllTest: bool = True, tests: list = None):
-    if obtainAllTest:
-        print("obtaining tests\n")
+    if obtainAllTest and tests is None:
+        print("Auto-obtaining tests\n")
         tests = getListOfTest()
+    else:
+        print("Using passed tests list")
 
     rounds_list = list()
     mean = 0
