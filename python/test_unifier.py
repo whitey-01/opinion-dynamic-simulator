@@ -19,6 +19,15 @@ def getListOfTest():
     return tests
 
 
+def calcStandardDeviation(data: list, mean: float, count: int):
+    variance = 0
+    for d in data:
+        variance += math.pow((d - mean), 2)
+
+    variance = variance / (count - 1)
+    return round(math.sqrt(variance), 2)
+
+
 class TestUnifier:
 
     # if auto_retrieve_tests is true then you don't need to pass tests list
@@ -58,20 +67,14 @@ class TestUnifier:
             return 0, 0
 
         mean = round(mean / count, 2)
-
-        variance = 0
-        for rounds in rounds_list:
-            variance += math.pow((rounds - mean), 2)
-
-        variance = variance / (count - 1)
-        stdDeviation = round(math.sqrt(variance), 2)
-        print("Mean = " + str(mean))
-        print("Standard Deviation = " + str(stdDeviation))
-        return mean, stdDeviation
+        return mean, calcStandardDeviation(rounds_list, mean, count)
 
 
 # auto-retrieving tests example
-# mean, deviation = TestUnifier().obtainMeanAndDeviation()
+mean, deviation = TestUnifier().obtainMeanAndDeviation()
 
 # Providing data manually example
-mean, deviation = TestUnifier(testIDsList=["12343242345345"]).obtainMeanAndDeviation()
+# mean, deviation = TestUnifier(testIDsList=["12343242345345"]).obtainMeanAndDeviation()
+
+print("Mean = " + str(mean))
+print("Standard Deviation = " + str(deviation))
