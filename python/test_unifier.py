@@ -41,8 +41,8 @@ class TestUnifier:
         elif testIDsList:
             print("Using provided tests list\n")
             self.tests = []
-            for id in testIDsList:
-                self.tests.append(TESTS_DIR + "t_" + id)
+            for ID in testIDsList:
+                self.tests.append(TESTS_DIR + "t_" + ID)
         else:
             raise Exception(
                 "Error:- Invalid initializer. Either the list in NOT empty or auto-retrieve is left to True")
