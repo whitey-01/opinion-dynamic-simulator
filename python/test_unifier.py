@@ -16,34 +16,43 @@ def getListOfTest():
     return tests
 
 
-# if obtainAllTest is true then you don't need to pass tests list
-def obtainMeanAndDeviationFrom(obtainAllTest: bool = True, tests: list = None):
-    if obtainAllTest and tests is None:
-        print("Auto-obtaining tests\n")
-        tests = getListOfTest()
-    else:
-        print("Using passed tests list")
+class TestUnifier:
 
-    rounds_list = list()
-    mean = 0
-    count = 0
-    for test in tests:
-        root = et.parse(test + "/test_result.xml").getroot()
+    # if auto_retrieve_tests is true then you don't need to pass tests list
+    def __init__(self, auto_retrieve_tests: bool = True, my_tests: list = None):
+        if auto_retrieve_tests and my_tests is None:
+            print("Auto-retrieving tests\n")
+            self.tests = getListOfTest()
+        else:
+            print("Using passed tests list")
+            self.tests = []
+            for test in my_tests:
+                self.tests.append(TESTS_DIR + test)
 
-        for simulation in root.iter("simulation"):
-            mean += int(simulation.find("simulation-rounds").text)
-            rounds_list.append(int(simulation.find("simulation-rounds").text))
-            count += 1
-    mean = round(mean / count, 2)
+    def obtainMeanAndDeviation(self):
+        rounds_list = list()
+        mean = 0
+        count = 0
+        for test in self.tests:
+            root = et.parse(test + "/test_result.xml").getroot()
 
-    variance = 0
-    for rounds in rounds_list:
-        variance += math.pow((rounds - mean), 2)
+            for simulation in root.iter("simulation"):
+                mean += int(simulation.find("simulation-rounds").text)
+                rounds_list.append(int(simulation.find("simulation-rounds").text))
+                count += 1
+        mean = round(mean / count, 2)
 
-    variance = variance / (count - 1)
-    return mean, round(math.sqrt(variance), 2)
+        variance = 0
+        for rounds in rounds_list:
+            variance += math.pow((rounds - mean), 2)
+
+        variance = variance / (count - 1)
+        stdDeviation = round(math.sqrt(variance), 2)
+        print("Mean = " + str(mean))
+        print("Standard Deviation = " + str(stdDeviation))
+        return mean, stdDeviation
 
 
-mean, stdDeviation = obtainMeanAndDeviationFrom(obtainAllTest=True)
-print("Mean = " + str(mean))
-print("Standard Deviation = " + str(stdDeviation))
+# mean, deviation = TestUnifier(auto_retrieve_tests=True).obtainMeanAndDeviation()
+
+mean, deviation = TestUnifier(my_tests=["t_15996928933660312"]).obtainMeanAndDeviation()
