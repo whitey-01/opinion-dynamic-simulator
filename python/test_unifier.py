@@ -11,7 +11,7 @@ OUTPUT_DIR = "output/"
 TESTS_DIR = OUTPUT_DIR + "tests/"
 
 
-def getListOfTest():
+def getListOfTests():
     tests = list()
     for root, dirs, files in os.walk(TESTS_DIR, topdown=False):
         for name in dirs:
@@ -33,11 +33,11 @@ class TestUnifier:
     # if auto_retrieve_tests is true then you don't need to pass tests list
 
     # WARNING:- if you use auto retrieving, make sure that all tests in test directory
-    # are made on the same configuration or will have unusable data
+    # are made on the same configuration or it will output unusable/inconsistent data
     def __init__(self, auto_retrieve_tests: bool = True, testIDsList: list = None):
         if auto_retrieve_tests and not testIDsList:
             print("Auto-retrieving tests from " + TESTS_DIR + "\n")
-            self.tests = getListOfTest()
+            self.tests = getListOfTests()
         elif testIDsList:
             print("Using provided tests list\n")
             self.tests = []
@@ -55,7 +55,7 @@ class TestUnifier:
             try:
                 root = et.parse(test + "/test_result.xml").getroot()
             except:
-                print("Test " + test + " not found. Ignoring it.")
+                print("Test " + test + " not found. Skipping it.")
                 continue
 
             for simulation in root.iter("simulation"):
@@ -63,8 +63,7 @@ class TestUnifier:
                 rounds_list.append(int(simulation.find("simulation-rounds").text))
                 count += 1
         if mean == 0:
-            print("None of the file provided has been found")
-            return 0, 0
+            raise Exception("Error:- None of the file provided has been found")
 
         mean = round(mean / count, 2)
         return mean, calcStandardDeviation(rounds_list, mean, count)
