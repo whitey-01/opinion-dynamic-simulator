@@ -16,7 +16,7 @@ La dinamica delle opinioni ha come obiettivo quello di sviluppare dei modelli ma
 \newline
 \newline
 \subsection{Lo studio}
-Il sistema preso in esame, definito binario, prevede l'esistenza di due opinioni adottabili, che d'ora in poi indicheremo con opinine 0 e 1. Gli individui del sistema esprimeranno una preferenza verso una delle due opinioni, che definiremo  dominante\footnote{la definizione di opinione dominante dipende dal contesto ed esula dagli obiettivi di questo scritto}.
+Il sistema preso in esame, definito binario, prevede l'esistenza di due opinioni adottabili, che d'ora in poi indicheremo con opinione 0 e 1. Gli individui del sistema esprimeranno una preferenza verso una delle due opinioni, che definiremo  dominante\footnote{la definizione di opinione dominante dipende dal contesto ed esula dagli obiettivi di questo scritto}.
 \newline
 Senza perdità di generalità assumeremo 1 come tale.
 \newline
@@ -32,7 +32,7 @@ Le dinamiche di aggiornamento dell'opinione prese in considerazione sono:
 \item Majority-Dynamic, nel quale l'individuo adotterà l'opinione più diffusa tra i suoi vicini
 \end{itemize}
 \newline
-L'obiettivo è quello di analizzare il numero di passi, in valore atteso, necessari affinchè si raggiunga il consenso verso l'opinoine dominante. È facile notare come, raggiunto questo stato, il sistema non possa evolvere più. Definiremo perciò tale stato "Stato di Assorbimento". 
+L'obiettivo è quello di analizzare il numero di passi, in valore atteso, necessari affinchè si raggiunga il consenso verso l'opinione dominante. È facile notare come, raggiunto questo stato, il sistema non possa evolvere più. Definiremo perciò tale stato "Stato di Assorbimento". 
 \newline
 \newline
 Tale analisi è volta a rivelare, qualora esistesse, il legame che intercorre tra la struttura della rete e il numero di passi necessari a raggiungere lo stato di assorbimento, sotto una specifica dinamica.
@@ -80,5 +80,6 @@ In questo modo è possibile suddividere un test composto da 100 simulazioni in 1
 \end{itemize}
 \newline
 Per ogni topologia sono stati eseguiti test su grafi che andavano da $2^{5^{\mathrm{}}}$ vertici fino a $2^{12^{\mathrm{}}}$ vertici.\newline
-Ognuno dei test è stato configurato per eseguire 100 simulazioni, con  Majority-Dynamic e un bias pari a 0.5. \newline
+Ognuno dei test è stato configurato per eseguire 100 simulazioni e con  Majority-Dynamic. \newline
+I valori di $\alpha$ che sono stati presi in esame sono 0.25 e 0.5.
 \end{document}
