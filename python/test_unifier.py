@@ -63,7 +63,7 @@ class TestUnifier:
                 rounds_list.append(int(simulation.find("simulation-rounds").text))
                 count += 1
         if mean == 0:
-            raise Exception("Error:- None of the file provided has been found")
+            raise Exception("Error:- No test has been found")
 
         mean = round(mean / count, 2)
         return mean, calcStandardDeviation(rounds_list, mean, count)

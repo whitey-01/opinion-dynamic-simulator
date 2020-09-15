@@ -5,16 +5,16 @@ import python.simulator.simulation_configurator as sc
 import python.simulator.graph_generator as gg
 
 # simple main that performs a test by running multiple simulation on a fixed config.
-ITERATIONS = 15
+ITERATIONS = 100
 
-# graph = gg.generateHypercubeGraph(d=12)
-graph = gg.generateKCliqueGraph(4096)
+graph = gg.generateHypercubeGraph(d=11)
+# graph = gg.generateKCliqueGraph(4096)
 # graph = gg.generateKCycleGraph(4096)
 
 simulationConfigurator = sc.SimulationConfigurator(graph=graph,
-                                                   bias=0.5,
+                                                   bias=0.25,
                                                    opinion_update_rule=sc.OpinionUpdateRule.MAJORITY_DYNAMICS,
-                                                   comment="Clique 4096 nodi")
+                                                   comment="Ipercubo 2048 nodi")
 
 testConfigurator = tc.TestConfigurator(simulationConfigurator=simulationConfigurator, iterations=ITERATIONS)
 
