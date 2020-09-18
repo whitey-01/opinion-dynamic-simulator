@@ -10,7 +10,7 @@
 \maketitle
 
 \section{Introduzione}
-ALLA FINE
+[ALLA FINE]
 \section{La dinamica delle opinioni}
 La dinamica delle opinioni ha come obiettivo quello di sviluppare dei modelli matematici volti a descrivere l'evoluzione delle opinioni all'interno di una rete sociale formata da individui interagenti.
 \newline
@@ -38,7 +38,7 @@ L'obiettivo è quello di analizzare il numero di passi, in valore atteso, necess
 Tale analisi è volta a rivelare, qualora esistesse, il legame che intercorre tra la struttura della rete e il numero di passi necessari a raggiungere lo stato di assorbimento, sotto una specifica dinamica.
 
 \subsection{Lo stato dell'arte}
-DA SVILUPPARE 
+[DA SVILUPPARE] 
 
 \section{Opinion Dynamic Simulator}
 \subsection{Il software}
@@ -81,5 +81,12 @@ In questo modo è possibile suddividere un test composto da 100 simulazioni in 1
 \newline
 Per ogni topologia sono stati eseguiti test su grafi che andavano da $2^{5^{\mathrm{}}}$ vertici fino a $2^{12^{\mathrm{}}}$ vertici.\newline
 Ognuno dei test è stato configurato per eseguire 100 simulazioni e con  Majority-Dynamic. \newline
-I valori di $\alpha$ che sono stati presi in esame sono 0.25 e 0.5.
+I valori di $\alpha$ che sono stati presi in esame sono 0.25 e 0.5.\newline
+\newline
+La prima serie di test, esguita con bias pari a 0.5, ha confermato quanto dimostrato teoricamente [INSERIRE RIFERIMENTI]. I dati, infatti, mostrano come lo stato di assorbimento venga raggiunto, in valore atteso, in $O(n\log{}n)$ passi con alta probabilità, indipendentemente dalla topologia del grafo sul quale sono stati eseguiti i test.\newline
+\newline
+Una volta appurato perciò che il software simulasse correttamente i processi descritti, ottenendo risultati conformi a quanto atteso, sono stati eseguiti test per i quali il bias verso l'opinione dominante è stato ridotto a 0.25, di fatto dimezzandolo.\newline
+Per quanto riguarda il Ciclo e la Clique, sono stati ancora una volta confermati i risultati attesi.
+Lo stato di assorbimento per il Ciclo è stato nuovamente raggiunto in $O(n\log{}n)$ passi in valore atteso. Nello specifico, dimezzando il valore del bias, i tempi di assorbimento per tale topologia sono raddoppiati, suggerendo una proporzionalità inversa tra il numero di vertici e il valore del bias.\newline
+D'altra parte, come previsto, è stato impossibile ultimare i test per la Clique, in quanto, con un bias cosi basso, il numero di passi necessari a raggiungere lo stato di assorbimento è diventato esponeziale nel numero di vertici, di fatto rendendo impossibile lo svolgimento dei test, già dalla dimensione di $2^{7^{\mathrm{}}}$.
 \end{document}
