@@ -1,5 +1,6 @@
 import graph_tool.all as gt
 import random
+import math
 
 
 # Hub that holds some native graph_tool topology generator (wrapped) and some custom additions like hypercubes
@@ -52,6 +53,27 @@ def generateKCliqueGraph(vertices_num: int):
 # wraps graph_tool function in a custom one to maintain module integrity
 def generateKCycleGraph(vertices_num: int):
     return gt.circular_graph(vertices_num)
+
+
+# generates an Erdős–Rényi Graph(V,E) where every edge e(u,v) has probability p to be in E
+# if you want graph to be connected (with high probability), p will be auto calculated to be > ((1+&)ln(n))/n
+def generateERGraph(vertices_num: int, connected: bool = True, p: float = None):
+    if connected:
+        print("Auto-calculating p..")
+        eps = 0.00000001  # ???
+        p = ((1 + eps) * math.log(vertices_num, 2)) / vertices_num
+        print("p = " + str(p))
+    elif not connected and not p:
+        raise Exception("ERROR:- You can't set connected to false without providing a value for p!")
+
+    g = gt.Graph(directed=False)
+    g.add_vertex(vertices_num)
+    for v1 in g.vertices():
+        for v2 in g.vertices():
+            if g.vertex_index[v1] != g.vertex_index[v2] and g.edge(v1, v2) is None:
+                if random.uniform(0, 1) <= p:
+                    g.add_edge(v1, v2)
+    return g
 
 
 # -------- W I P -------------------------------------------------------------------------
