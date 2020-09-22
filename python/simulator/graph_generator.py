@@ -60,7 +60,7 @@ def generateKCycleGraph(vertices_num: int):
 def generateERGraph(vertices_num: int, connected: bool = True, p: float = None):
     if connected:
         print("Auto-calculating p..")
-        eps = 0.00000001  # ???
+        eps = 0.000001  # ???
         p = ((1 + eps) * math.log(vertices_num, 2)) / vertices_num
         print("p = " + str(p))
     elif not connected and not p:
@@ -70,33 +70,74 @@ def generateERGraph(vertices_num: int, connected: bool = True, p: float = None):
     g.add_vertex(vertices_num)
     for v1 in g.vertices():
         for v2 in g.vertices():
-            if g.vertex_index[v1] != g.vertex_index[v2] and g.edge(v1, v2) is None:
-                if random.uniform(0, 1) <= p:
-                    g.add_edge(v1, v2)
+            if g.vertex_index[v1] != g.vertex_index[v2] and g.edge(v1, v2) is None and random.uniform(0, 1) <= p:
+                g.add_edge(v1, v2)
     return g
 
 
 # -------- W I P -------------------------------------------------------------------------
-# generates a random, non directed, connected graph
-def generateConnectedRandomGraph(vertices_num: int):
+# generates a random connected graph with a max deg
+def generateConnectedRandomGraph(vertices_num: int, max_deg: int):
     g = gt.Graph(directed=False)
     g.add_vertex(vertices_num)
 
+    attempts = 0
     while not isConnected(g):
-        v1: gt.Vertex = random.choice(list(g.vertices()))
-        v2: gt.Vertex = random.choice(list(g.vertices()))
-        while g.vertex_index[v1] == g.vertex_index[v2] or g.edge(v1, v2) is not None:
-            v2 = random.choice(list(g.vertices()))
-        g.add_edge(v1, v2)
+        if attempts > 1000:
+            raise Exception("Error:- exceeded attempts on generating connected graph")
+
+        deg_distribution = []
+        for i in range(0, vertices_num):
+            deg_distribution.append(random.choice(range(1, max_deg + 1)))
+
+        adjacencyMatrix = getAdjacencyMatrix(deg_distribution, vertices_num)
+        for i in range(vertices_num):
+            for j in range(vertices_num):
+                v1 = g.vertex(i)
+                v2 = g.vertex(j)
+                if adjacencyMatrix[i][j] == 1 and g.edge(v1, v2) is None:
+                    g.add_edge(v1, v2)
+        attempts += 1
+        print("Attempt: " + str(attempts))
     return g
 
 
-# return true if the graph is connected
+# return true if the graph is connected (iff g has no self loops or multiple edges)
 def isConnected(g):
-    for v1 in g.vertices():
-        for v2 in g.vertices():
-            if g.vertex_index[v1] != g.vertex_index[v2]:
-                edges_num = len(list(gt.shortest_path(g, v1, v2)[1]))
-                if edges_num == 0:
-                    return False
+    vertices_num: int = len(list(g.vertices()))
+    for v in g.vertices():
+        v: gt.Vertex = v
+        if v.out_degree() + v.in_degree() < (vertices_num - 1) / 2:
+            return False
     return True
+
+
+def getAdjacencyMatrix(deg_distribution: list, vertices_num: int):
+    # n is number of vertices
+    mat = [[0] * vertices_num for i in range(vertices_num)]
+
+    for i in range(vertices_num):
+        for j in range(i + 1, vertices_num):
+
+            # For each pair of vertex decrement
+            # the degree of both vertex.
+            if deg_distribution[i] > 0 and deg_distribution[j] > 0:
+                deg_distribution[i] -= 1
+                deg_distribution[j] -= 1
+                mat[i][j] = 1
+                mat[j][i] = 1
+
+    return mat
+
+
+def printAdjacencyMatrix(mat, n):
+    print("      ", end=" ")
+    for i in range(n):
+        print(" ", "(", i, ")", end="")
+    print()
+    print()
+    for i in range(n):
+        print(" ", "(", i, ")", end="")
+        for j in range(n):
+            print("     ", mat[i][j], end="")
+        print()
