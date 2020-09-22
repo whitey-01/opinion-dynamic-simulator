@@ -103,6 +103,7 @@ def generateConnectedRandomGraph(vertices_num: int, max_deg: int):
 
 
 # return true if the graph is connected (iff g has no self loops or multiple edges)
+# --------------------------WRONG-------------------------------------------------
 def isConnected(g):
     vertices_num: int = len(list(g.vertices()))
     for v in g.vertices():
