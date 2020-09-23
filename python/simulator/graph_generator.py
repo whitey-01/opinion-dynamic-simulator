@@ -107,6 +107,7 @@ def generateConnectedRandomGraph(vertices_num: int, max_deg: int):
 
 
 # return true if the graph is connected
+# -------------- IMPROVMENTS NEEDED ----------------------------------------
 def isConnected(g: gt.Graph):
     if not list(g.vertices()):
         # empty graphs are considered NOT connected
