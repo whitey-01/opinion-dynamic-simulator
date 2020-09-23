@@ -79,42 +79,53 @@ def generateERGraph(vertices_num: int, connected: bool = True, p: float = None):
 # generates a random connected graph with a max deg
 def generateConnectedRandomGraph(vertices_num: int, max_deg: int):
     g = gt.Graph(directed=False)
-    g.add_vertex(vertices_num)
-
-    attempts = 0
+    attempts = 1
     while not isConnected(g):
+        # reset graph
+        g = gt.Graph(directed=False)
+        g.add_vertex(vertices_num)
+
+        print("Attempt: " + str(attempts))
+
         if attempts > 1000:
             raise Exception("Error:- exceeded attempts on generating connected graph")
 
         deg_distribution = []
-        for i in range(0, vertices_num):
+        for i in range(vertices_num):
             deg_distribution.append(random.choice(range(1, max_deg + 1)))
 
         adjacencyMatrix = getAdjacencyMatrix(deg_distribution, vertices_num)
         for i in range(vertices_num):
-            for j in range(vertices_num):
+            for j in range(i + 1, vertices_num):
                 v1 = g.vertex(i)
                 v2 = g.vertex(j)
                 if adjacencyMatrix[i][j] == 1 and g.edge(v1, v2) is None:
                     g.add_edge(v1, v2)
         attempts += 1
-        print("Attempt: " + str(attempts))
+
     return g
 
 
-# return true if the graph is connected (iff g has no self loops or multiple edges)
-# --------------------------WRONG-------------------------------------------------
-def isConnected(g):
-    vertices_num: int = len(list(g.vertices()))
-    for v in g.vertices():
-        v: gt.Vertex = v
-        if v.out_degree() + v.in_degree() < (vertices_num - 1) / 2:
-            return False
+# return true if the graph is connected
+def isConnected(g: gt.Graph):
+    if not list(g.vertices()):
+        # empty graphs are considered NOT connected
+        return False
+    print("Checking connectedness of g..")
+    for v1 in g.vertices():
+        for v2 in g.vertices():
+            if g.vertex_index[v1] != g.vertex_index[v2]:
+                v_list, e_list = gt.shortest_path(g, v1, v2)
+                if not v_list:
+                    print("not connected!")
+                    return False
     return True
 
 
+# generates AdjacencyMatrix using degree distribution on vertices.
+# ATTENTION: it's NOT guaranteed that every vertex will have distribution requested
+# every vertex will have AT MOST indicated degree (upper bound)
 def getAdjacencyMatrix(deg_distribution: list, vertices_num: int):
-    # n is number of vertices
     mat = [[0] * vertices_num for i in range(vertices_num)]
 
     for i in range(vertices_num):
@@ -129,16 +140,3 @@ def getAdjacencyMatrix(deg_distribution: list, vertices_num: int):
                 mat[j][i] = 1
 
     return mat
-
-
-def printAdjacencyMatrix(mat, n):
-    print("      ", end=" ")
-    for i in range(n):
-        print(" ", "(", i, ")", end="")
-    print()
-    print()
-    for i in range(n):
-        print(" ", "(", i, ")", end="")
-        for j in range(n):
-            print("     ", mat[i][j], end="")
-        print()
