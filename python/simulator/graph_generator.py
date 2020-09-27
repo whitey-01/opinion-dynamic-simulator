@@ -56,16 +56,8 @@ def generateKCycleGraph(vertices_num: int):
 
 
 # generates an Erdős–Rényi Graph(V,E) where every edge e(u,v) has probability p to be in E
-# if you want graph to be connected (with high probability), p will be auto calculated to be > ((1+&)ln(n))/n
-def generateERGraph(vertices_num: int, connected: bool = True, p: float = None):
-    if connected:
-        print("Auto-calculating p..")
-        eps = 0.000001  # ???
-        p = ((1 + eps) * math.log(vertices_num, 2)) / vertices_num
-        print("p = " + str(p))
-    elif not connected and not p:
-        raise Exception("ERROR:- You can't set connected to false without providing a value for p!")
-
+# if you want graph to be connected (with high probability), p will be auto calculated to be > ((1+eps)log(n))/n
+def generateERGraph(vertices_num: int, p: float):
     g = gt.Graph(directed=False)
     g.add_vertex(vertices_num)
     for v1 in g.vertices():
@@ -75,7 +67,7 @@ def generateERGraph(vertices_num: int, connected: bool = True, p: float = None):
     return g
 
 
-# -------- W I P -------------------------------------------------------------------------
+# -------- W I P ------------------------------------------------------------------------------------------------------
 # generates a random connected graph with a max deg
 def generateConnectedRandomGraph(vertices_num: int, max_deg: int):
     g = gt.Graph(directed=False)
