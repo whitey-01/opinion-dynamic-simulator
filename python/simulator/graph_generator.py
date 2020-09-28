@@ -56,12 +56,13 @@ def generateKCycleGraph(vertices_num: int):
 
 
 # generates an Erdős–Rényi Graph(V,E) where every edge e(u,v) has probability p to be in E
-# if you want graph to be connected (with high probability), p will be auto calculated to be > ((1+eps)log(n))/n
 def generateERGraph(vertices_num: int, p: float):
     g = gt.Graph(directed=False)
     g.add_vertex(vertices_num)
     for v1 in g.vertices():
         for v2 in g.vertices():
+            # edge e(v1, v2) will be added with probability p unless it would create a self-loop or a parallel edge -
+            # (1st and 2nd conditions)
             if g.vertex_index[v1] != g.vertex_index[v2] and g.edge(v1, v2) is None and random.uniform(0, 1) <= p:
                 g.add_edge(v1, v2)
     return g
