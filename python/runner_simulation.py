@@ -8,7 +8,7 @@ import python.simulator.graph_generator as gg
 # graph = gg.generateHypercubeGraph(d=12)
 # graph = gg.generateKCliqueGraph(vertices_num=15)
 # graph = gg.generateKCycleGraph(25)
-graph = gg.generateERGraph(512)
+graph = gg.generateERGraph(vertices_num=256, p=1/256)
 
 config = sc.SimulationConfigurator(graph=graph,
                                    bias=0.25,
