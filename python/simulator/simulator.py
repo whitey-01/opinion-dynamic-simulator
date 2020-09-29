@@ -71,6 +71,8 @@ def init_properties(g: gt.Graph):
 # simulates the Voter model update rule
 def simulateVoterModel(v: gt.Vertex, g: gt.Graph):
     neighbors = list(v.all_neighbors())
+    if not len(neighbors):
+        return g
     u: gt.Vertex = random.choice(neighbors)
     g.vertex_properties["opinion"][v] = g.vertex_properties["opinion"][u]
     g.vertex_properties["opinion_color"][v] = color_map(g.vertex_properties["opinion"][v])
@@ -79,9 +81,14 @@ def simulateVoterModel(v: gt.Vertex, g: gt.Graph):
 
 # simulates the Majority dynamics update rule
 def simulateMajorityDynamics(v: gt.Vertex, g: gt.Graph):
+    neighbors = list(v.all_neighbors())
+    if not len(neighbors):
+        return g
+
     opinion0_counter = 0
     opinion1_counter = 0
-    for vertex in v.all_neighbors():
+
+    for vertex in neighbors:
         if g.vertex_properties["opinion"][vertex] == 0:
             opinion0_counter += 1
         else:

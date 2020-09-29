@@ -1,6 +1,5 @@
 import graph_tool.all as gt
 import random
-import math
 
 
 # Hub that holds some native graph_tool topology generator (wrapped) and some custom additions like hypercubes

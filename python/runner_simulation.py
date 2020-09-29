@@ -5,12 +5,11 @@ import python.simulator.graph_generator as gg
 
 # simple main that performs a simulation of the process
 
-# graph = gg.generateHypercubeGraph(d=12)
-# graph = gg.generateKCliqueGraph(vertices_num=15)
-# graph = gg.generateKCycleGraph(25)
+
 graph = gg.generateERGraph(vertices_num=256, p=1/256)
 
-config = sc.SimulationConfigurator(graph=graph,
+config = sc.SimulationConfigurator(comment="Erdos–Renyi 256 nodi, p = 1/n",
+                                   graph=graph,
                                    bias=0.25,
                                    opinion_update_rule=sc.OpinionUpdateRule.MAJORITY_DYNAMICS)
 

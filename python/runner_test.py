@@ -1,5 +1,4 @@
 import math
-import random
 import python.simulator.test_configurator as tc
 import python.simulator.test_result as tr
 import python.simulator.tester as ts
@@ -9,16 +8,19 @@ import python.simulator.graph_generator as gg
 # simple main that performs a test by running multiple simulation on a fixed config.
 ITERATIONS = 100
 
-n = 256
-p = 1/n
+n = 128
+# p = 1/n
+p = 1 / (2 * n)
+# p = math.log(n, 2)/n
 print(p)
 
 graph = gg.generateERGraph(n, p)
 
-simulationConfigurator = sc.SimulationConfigurator(graph=graph,
+simulationConfigurator = sc.SimulationConfigurator(comment="Erdos–Renyi " + str(n) + " nodi, p = 1/2n",
+                                                   graph=graph,
                                                    bias=0.25,
-                                                   opinion_update_rule=sc.OpinionUpdateRule.MAJORITY_DYNAMICS,
-                                                   comment="Erdos–Renyi " + str(n) + " nodi, p = 1/n")
+                                                   opinion_update_rule=sc.OpinionUpdateRule.MAJORITY_DYNAMICS)
+
 
 testConfigurator = tc.TestConfigurator(simulationConfigurator=simulationConfigurator, iterations=ITERATIONS)
 
