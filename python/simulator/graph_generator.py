@@ -5,6 +5,23 @@ import random
 # Hub that holds some native graph_tool topology generator (wrapped) and some custom additions like hypercubes
 
 
+# utility that returns a map containing minimum, average and max degree of a graph
+def getDegreeValuesOf(g: gt.Graph):
+    min_deg = 0
+    max_deg = 0
+    avg_deg = 0
+    for v in g.vertices():
+        v: gt.Vertex = v
+        # in_degree is 0 for undirected graphs
+        if v.out_degree() > max_deg:
+            max_deg = v.out_degree() + v.in_degree()
+        if v.out_degree() < min_deg:
+            min_deg = v.out_degree() + v.in_degree()
+        avg_deg += v.out_degree() + v.in_degree()
+    avg_deg = avg_deg / len(list(g.vertices()))
+    return {"min_deg": min_deg, "avg_deg": avg_deg, "max_deg": max_deg}
+
+
 # generates an hypercube graph given a distance d
 # the hypercube is built using bit-fix idea
 def generateHypercubeGraph(d: int):

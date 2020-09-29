@@ -16,6 +16,7 @@ print(p)
 
 graph = gg.generateERGraph(n, p)
 
+
 simulationConfigurator = sc.SimulationConfigurator(comment="Erdos–Renyi " + str(n) + " nodi, p = 1/2n",
                                                    graph=graph,
                                                    bias=0.25,
