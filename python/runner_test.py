@@ -8,19 +8,20 @@ import python.simulator.graph_generator as gg
 # simple main that performs a test by running multiple simulation on a fixed config.
 ITERATIONS = 100
 
-n = 128
-# p = 1/n
-p = 1 / (2 * n)
+n = 512
+eps = 0.5
+p = (1 - eps) / n
 # p = math.log(n, 2)/n
 print(p)
 
 graph = gg.generateERGraph(n, p)
 
 
-simulationConfigurator = sc.SimulationConfigurator(comment="Erdos–Renyi " + str(n) + " nodi, p = 1/2n",
-                                                   graph=graph,
-                                                   bias=0.25,
-                                                   opinion_update_rule=sc.OpinionUpdateRule.MAJORITY_DYNAMICS)
+simulationConfigurator = sc.SimulationConfigurator(
+    graph_desc="Erdos–Renyi n=" + str(n) + ", eps=" + str(eps) + ", p = " + str(p),
+    graph=graph,
+    bias=0.25,
+    opinion_update_rule=sc.OpinionUpdateRule.MAJORITY_DYNAMICS)
 
 
 testConfigurator = tc.TestConfigurator(simulationConfigurator=simulationConfigurator, iterations=ITERATIONS)

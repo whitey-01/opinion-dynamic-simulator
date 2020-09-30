@@ -39,6 +39,7 @@ class TestResult:
 
     def exportTestOutputAsXML(self, test_dir: str):
         test = "<test>"
+        test += "<test-id>" + self.test_id + "</test-id>"
         test += "<!-- Test Configuration -->"
         test += self.testConfigurator.configXMLSerializer()
         test += "<test-simulations>"

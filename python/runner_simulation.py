@@ -8,7 +8,7 @@ import python.simulator.graph_generator as gg
 
 graph = gg.generateERGraph(vertices_num=256, p=1/256)
 
-config = sc.SimulationConfigurator(comment="Erdos–Renyi 256 nodi, p = 1/n",
+config = sc.SimulationConfigurator(graph_desc="Erdos–Renyi 256 nodi, p = 1/n",
                                    graph=graph,
                                    bias=0.25,
                                    opinion_update_rule=sc.OpinionUpdateRule.MAJORITY_DYNAMICS)
