@@ -1,5 +1,6 @@
 \documentclass{article}
 \usepackage{graphicx}
+\usepackage{amsmath}
 \usepackage{caption}
 \usepackage[utf8]{inputenc}
 
@@ -17,10 +18,10 @@
 La dinamica delle opinioni ha come obiettivo quello di sviluppare dei modelli matematici volti a descrivere l'evoluzione delle opinioni all'interno di una rete sociale formata da individui interagenti.\\*
 Tali studi hanno portato allo sviluppo di numerosi modelli, adottando caratteristiche diversificate per quanto riguarda le dinamiche di interazione e il numero delle opinioni prese in esame, che hanno trovato come campo di applicazione discipline che vanno dalle Scienze Sociali alla Fisica e alla Biologia.
 \subsection{Lo studio}
-Il modello preso in esame descrive un sistema definito binario che prevede l'esistenza di due opinioni adottabili, indicate d'ora in poi con opinione 0 e opinione 1. Gli individui del sistema esprimeranno una preferenza verso una delle due opinioni, che definiremo  dominante\footnote{la definizione di opinione dominante dipende dal contesto ed esula dagli obiettivi di questo scritto}.\\*
+Il modello preso in esame descrive un sistema binario che prevede l'esistenza di due opinioni adottabili, indicate d'ora in poi con opinione 0 e opinione 1. Gli individui del sistema esprimeranno una preferenza verso una delle due opinioni, che definiremo  dominante\footnote{la definizione di opinione dominante dipende dal contesto ed esula dagli obiettivi di questo scritto}.\\*
 Senza perdità di generalità assumeremo 1 come tale.\\*
 Il sistema evolve in passi. Inizialmente ogni individuo condivide l'opinione 0.\\*
-Ad ogni passo, un individuo scelto casualmente adotta l'opinione 1 (dominante) con probabilità $\alpha$, mentre con probabilità 1-$\alpha$ adotta una delle due opinioni possibili attraverso delle dinamiche prestabilite.\\*
+Ad ogni passo, un individuo scelto casualmente adotta l'opinione 1 (dominante) con probabilità $\alpha$, mentre con probabilità 1-$\alpha$ adotta una delle due opinioni possibili attraverso una delle dinamiche prestabilite.\\*
 Le dinamiche di aggiornamento dell'opinione prese in considerazione sono:
 \begin{itemize}
 \item Voter-Model, nel quale l'individuo adotterà l'opinione di uno dei suoi vicini scelto casualmente
@@ -46,7 +47,7 @@ Per poter comparare ed analizzare statisticamente i tempi di assorbimento, ho sv
 \item Ipercubo
 \item Clique
 \item Ciclo
-\item Modello di Erdős–Rényi
+\item Modello di Erdős–Rényi G($n$,$p$)
 \end{itemize}
 \subsection{Analisi di clique, ipercubo e ciclo}
 I primi test eseguiti sono serviti a verificare l'accuratezza del software e correggerne eventuali errori. Ogni test è composto da 100 simulazioni, configurate con Majority-Dynamic e bias pari a $\frac{1}{2}$.\\*
@@ -65,9 +66,12 @@ Lo stato di assorbimento per il ciclo è stato nuovamente raggiunto in $O(\frac{
 D'altra parte, come previsto, è stato impossibile ultimare i test per la clique, in quanto, con un bias inferiore a $\frac{1}{2}$, il numero di passi necessari a raggiungere lo stato di assorbimento è diventato esponenziale nel grado minimo, di fatto rendendo impossibile lo svolgimento dei test già dalla dimensione di $2^{6^{\mathrm{}}}$.\\*
 Il paper in esame [1], d'altronde, lascia aperta la domanda inerente al comportamento dell'ipercubo con un bias così basso. Dal risultato dei test si evince come l'ipercubo abbia un comportamento assimilabile a quello del ciclo, raggiungendo perciò lo stato di assorbimento in $O(n\log{}n)$ passi.
 \subsection{Analisi del Modello di Erdős–Rényi}
-In questa sezione, la mia attenzione si è concentrata sull'analisi dei tempi di assorbimento per topologie non regolari, cioè grafi per i quali i vertici non condividono lo stesso grado.\\
+Questa sezione è dedicata all'analisi dei tempi di assorbimento per topologie non regolari, cioè grafi per i quali i vertici non condividono lo stesso grado.\\
 Tali topologie sono state generate scrivendo un algoritmo aleatorio basato sul Modello di Erdős–Rényi G($n$,$p$).\\*
-In tale modello, dato un grafo avente $n$ vertici, ogni arco ($u$,$v$) esiste con probabilità $p$.\\*
+In tale modello, dato un grafo G($V$,$E$) con $|V|$ = $n$,
+\begin{equation}
+    \forall \: u,v \in V,\; (u,v) \in E  \text{ con probabilità } p.
+\end{equation}
 I test eseguiti sono composti da 100 simulazioni, configurate con Majority-Dynamic e bias pari a $\frac{1}{4}$.\\*
 Le topologie prese in considerazione hanno dimensioni che vanno da $2^{5^{\mathrm{}}}$ fino a $2^{12^{\mathrm{}}}$ vertici e sono state generate con il modello G($n$,$p$) descritto precedentemente, utilizzando i seguenti valori di $p$:
 \begin{itemize}
@@ -75,11 +79,8 @@ Le topologie prese in considerazione hanno dimensioni che vanno da $2^{5^{\mathr
 \item $p$ $\geq$ $\frac{1+\epsilon}{n}$, per il quale il grafo presenta una $giant$ $component$ circondata da componenti più piccole aventi dimensione $O(\log{}n)$, con alta probabilità
 \item $p$ = $\frac{\log{}n}{n}$, per il quale il grafo risulta connesso e discretamente denso, con alta probabilità
 \end{itemize}
-
-Di seguito alcuni grafi ottenuti attraverso le probabilità descritte:\\*
-
+Alcuni esempi ottenuti utilizzando le probabilità descritte:\\*
 $n$ = 256\\*
-
 \begin{figure}[!htb]
 \minipage{0.32\textwidth}
   \includegraphics[width=\linewidth]{ER_SP.png}
@@ -98,26 +99,26 @@ $n$ = 256\\*
 
 
 \section{Opinion Dynamic Simulator}
-Il software sviluppato ha lo scopo di fornire degli strumenti volti ad indagare statisticamente alcune delle dinamiche prese in esame, al fine di poter riprodurre tali dinamiche ed eventualmente fornire ulteriori risposte su topologie e meccaniche rimaste inesplorate.\\*
-Il linguaggio principale che è stato scelto per lo sviluppo del software è Python. Le motivazioni dietro tale scelta risiedono non soltanto nella grande diffusione e nel grande supporto di cui questo linguaggio gode, ma anche dalla presenza di numerosi moduli che permettessero al meglio di rappresentare ed interfacciarsi con i grafi, strutture attraverso le quali viene rappresentata la rete sociale.
-Tra i vari moduli disponibili è stato scelto Graph-Tool. Tra i punti di forza di questo modulo si annoverano una precisa modellazione di tali strutture, con possibilità di aggiungere proprietà personalizzate su vertici e archi e numerose funzioni di generazione e rappresentazione di alcune topologie tipiche dei grafi, quali paths, cicli e cliques. Il vero punto di forza di Graph-Tool è però la sua velocità, ottenuta grazie alla possibilità di eseguire molte di queste funzioni non in python, bensì in C, linguaggio di livello più basso e perciò più rapido nell'esecuzione di alcune istruzioni fondamentali.\\*
+Il software sviluppato fornisce degli strumenti utili a riprodurre le dinamiche descritte al fine di indagare legami inespressi che intercorrono tra alcune topologie e valori di bias.\\*
+Il linguaggio principale scelto per lo sviluppo del software è Python. Le motivazioni dietro tale scelta risiedono non soltanto nella grande diffusione e nel grande supporto di cui questo linguaggio gode, ma anche dalla presenza di numerosi moduli che permettono di rappresentare ed interagire al meglio con i grafi, strutture attraverso le quali viene rappresentata la rete sociale.
+Tra i vari moduli disponibili è stato scelto Graph-Tool. Tra i punti di forza di questo modulo si annoverano una precisa modellazione di tali strutture, con possibilità di aggiungere proprietà personalizzate su vertici e archi nonchè numerose funzioni di generazione e rappresentazione di alcune topologie tipiche dei grafi, quali paths, cicli e cliques. Il vero punto di forza di Graph-Tool è però la sua velocità, ottenuta grazie alla possibilità di eseguire molte di queste funzioni non in python, bensì in C, linguaggio di livello più basso e perciò più rapido nell'esecuzione di alcune istruzioni fondamentali.\\*
 Alcune topologie non presenti nativamente nel modulo, sono state personalmente riscritte utilizzando comunque le strutture di base fornite. É questo il caso dell'ipercubo, per il quale ho scritto un algoritmo di generazione basato sull'algoritmo Bit-Fix, e del Modello di Erdős–Rényi.\\*
 Partendo da tale base, è stato sviluppato il processo di simulazione vero e proprio. Tale processo necessita come input, oltre al grafo, di un oggetto (d'ora in poi definito come configurator) contenente i parametri necessari alla configurazione della simulazione, come ad esempio la dinamica adottata e il bias verso l'opinione dominante.\\* 
 Al termine del processo di simulazione verranno salvate diverse informazioni, quali:
 \begin{itemize}
 \item Un file .XML contenente la serializzazione del grafo, cosi che possa essere facilemente ricostruito e riutilizzato.
-\item Un file .XML contenente le informazioni di configurazione e il risultato (numero di step) della             simulazione.
+\item Un file .XML contenente le informazioni di configurazione e il risultato (numero di step) della simulazione.
 \item Una rappresentazione grafica del grafo in formato .PNG
 \item Una cartella contenente dei file .PNG che mostrano l'andamento evolutivo della simulazione.
 \end{itemize}
-Al fine di ottenere dei dati quanto più possibile affidabili e limitare l'aleatorietà di tali processi, il software dispone inoltre di un modulo volto all'esecuzione di test. In questo contesto per test si intende l'esecuzione ripetuta di una simulazione, mantenendo invariati i paramentri di configurazione e la struttura del grafo. Così come le simulazioni anche i test necessitano di una configurazione che include, oltre al numero di iterazioni da effettuare, l'oggetto configurator (specifico per la configurazione di un test) che verrà condiviso dalle simulazioni eseguite nel test.
-Ponendo come obiettivo quello di velocizzare l'esecuzione di un test e ridurre l'impatto in termini di dimensioni, soprattutto per grafi molto numerosi e densi, l'esecuzione di un test non comporta il salvataggio di tutte le informazioni relative alle singole simulazioni, ma solamente:
+Al fine di ottenere dei dati quanto più possibile affidabili e limitare l'aleatorietà di tali processi, il software dispone inoltre di un modulo volto all'esecuzione di test. In questo contesto per test si intende l'esecuzione ripetuta di una simulazione, mantenendo invariati i paramentri di configurazione e la struttura del grafo. Così come le simulazioni, anche i test necessitano di una configurazione che include, oltre al numero di iterazioni da effettuare, l'oggetto configurator riferito alle simulazioni eseguite nel test.
+Ponendo come obiettivo quello di velocizzare l'esecuzione di un test e ridurre la dimensione dell'output, soprattutto per grafi molto densi e popolati, l'esecuzione di un test non comporta il salvataggio di tutte le informazioni relative alle singole simulazioni, ma solamente:
 \begin{itemize}
 \item Un file .XML contenente la serializzazione del grafo, cosi che possa essere facilemente ricostruito e riutilizzato.
 \item Un file .XML contenente le informazioni di configurazione del test, i risultati di ogni singola simulazione, la media di tali valori e la deviazione standard.
 \item Una rappresentazione grafica del grafo in formato .PNG.
 \end{itemize}
-Considerando la durata media di un test composto da 100 simulazioni, eseguito su un grafo particolarmente  impegnativo, ad esempio con $2^{12^{\mathrm{}}}$ vertici, ho scelto di inserire un modulo che permettesse di riunificare molteplici test pre-eseguiti, utilizzando come dataset l'insieme delle simulazioni eseguite e ricalcolando correttamente la media e la deviazione standard.\\*
+Considerando la durata media di un test composto da 100 simulazioni, eseguito su un grafo particolarmente impegnativo, ad esempio con $2^{12^{\mathrm{}}}$ vertici, ho scelto di inserire un modulo che permettesse di riunificare molteplici test pre-eseguiti, utilizzando come dataset l'insieme delle simulazioni eseguite e ricalcolando correttamente la media e la deviazione standard.\\*
 In questo modo è possibile suddividere un test composto da 100 simulazioni in 10 test indipendenti, da 10 simulazioni ognuno, permettendo così di ridurre sensibilmente lo stress computazionale inflitto alla macchina sul quale viene eseguito.\\
 La scelta del formato .XML è dettata dalla necessità di avere quante più informazioni possibili salvate in maniera strutturata e coerente, grazie anche alla possibilità, fornita nativamente da Python, di formattare automaticamente files in tale estensione.\\
 Un ulteriore vantaggio dato dalla scelta del formato .XML è la possibilità di re-importare un grafo (tramite un metodo fornito dalla libreria graph-tool), partendo dal file ottenuto dalla serializzazione dello stesso. Questo risulta molto efficiente qual'ora si volessero eseguire ulteriori test/simulazioni a partire da un grafo precedentemente generato e difficilmente ricostruibile (nel caso di topologie ottenute tramite processi aleatori come nel Modello di Erdős–Rényi).

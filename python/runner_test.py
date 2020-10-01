@@ -8,7 +8,7 @@ import python.simulator.graph_generator as gg
 # simple main that performs a test by running multiple simulation on a fixed config.
 ITERATIONS = 100
 
-n = 512
+n = 2048
 eps = 0.5
 p = (1 - eps) / n
 # p = math.log(n, 2)/n
