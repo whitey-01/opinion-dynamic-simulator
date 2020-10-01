@@ -53,13 +53,13 @@ Per poter comparare ed analizzare statisticamente i tempi di assorbimento, ho sv
 I primi test eseguiti sono serviti a verificare l'accuratezza del software e correggerne eventuali errori. Ogni test è composto da 100 simulazioni, configurate con Majority-Dynamic e bias pari a $\frac{1}{2}$.\\*
 I test sono stati eseguiti su ipercubi, cliques e cicli, in dimensioni che vanno da $2^{5^{\mathrm{}}}$ fino a $2^{12^{\mathrm{}}}$ vertici.\\*
 \begin{center}
-\includegraphics[width=1\textwidth]{test_bias05.png}
+\includegraphics[width=1\textwidth]{Test/test_bias05.png}
 \end{center}
 I risultati ottenuti sono perfettamente in linea con quanto dimostrato teoricamente in  "Biased Opinion Dynamics" [1]. Per quanto riguarda il ciclo, il tempo di assorbimento è stato pari a $O(\frac{1}{\alpha}n\log{}n)$. \\*
 Riguardo clique e ipercubo, per i quali il grado minimo è pari a $\Omega(\log{}n)$, il tempo di assorbimento con bias pari a $\frac{1}{2}$ si è rivelato essere $O(n\log{}n)$, anche questa volta confermando quanto evidenziato dal paper [1].\\*
 Una volta appurato perciò che il software simulasse correttamente i processi descritti, ottenendo risultati conformi a quanto atteso, sono stati eseguiti test metodologicamente analoghi ai precedenti, adottando però un bias verso l'opinione dominante pari a $\frac{1}{4}$, di fatto dimezzandolo.\\*
 \begin{center}
-\includegraphics[width=1\textwidth]{test_bias025.png}
+\includegraphics[width=1\textwidth]{Test/test_bias025.png}
 \end{center}
 Per quanto riguarda il ciclo e la clique, sono stati ancora una volta confermati i risultati attesi.
 Lo stato di assorbimento per il ciclo è stato nuovamente raggiunto in $O(\frac{1}{\alpha}n\log{}n)$ passi in valore atteso. Nello specifico, dimezzando il valore del bias, i tempi di assorbimento per tale topologia sono raddoppiati, suggerendo una proporzionalità inversa tra il tempo di assorbimento e il valore del bias.\\*
@@ -83,15 +83,15 @@ Alcuni esempi ottenuti utilizzando le probabilità descritte:\\*
 $n$ = 256\\*
 \begin{figure}[!htb]
 \minipage{0.32\textwidth}
-  \includegraphics[width=\linewidth]{ER_SP.png}
+  \includegraphics[width=\linewidth]{ER_Examples/ER_SP.png}
   \caption*{$p$ $\leq$ $\frac{1-\epsilon}{n}$, $\epsilon$ = 0.5}
 \endminipage\hfill
 \minipage{0.32\textwidth}
-  \includegraphics[width=\linewidth]{ER_GC.png}
+  \includegraphics[width=\linewidth]{ER_Examples/ER_GC.png}
   \caption*{$p$ $\geq$ $\frac{1+\epsilon}{n}$,  $\epsilon$ = 0.3}
 \endminipage\hfill
 \minipage{0.32\textwidth}%
-  \includegraphics[width=\linewidth]{ER_DS.png}
+  \includegraphics[width=\linewidth]{ER_Examples/ER_DS.png}
   \caption*{$p$ = $\frac{\log{}n}{n}$}
 \endminipage
 \end{figure}
