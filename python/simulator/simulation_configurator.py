@@ -27,11 +27,13 @@ class SimulationConfigurator:
     # returns a xml string of the configurator
     def configXMLSerializer(self):
         config = "<config>"
-        graphDeg = "<config-graph-deg>" + self.getXMLDeg() + "</config-graph-deg>"
-        comment = "<config-graph-desc>" + self.graph_desc + "</config-graph-desc>"
-        updateRule = "<config-update-rule>" + self.opinion_update_rule.value + "</config-update-rule>"
-        bias = "<config-bias>" + str(self.bias) + "</config-bias>"
-        return config + comment + graphDeg + updateRule + bias + "</config>"
+        config += "<config-update-rule>" + self.opinion_update_rule.value + "</config-update-rule>"
+        config += "<config-bias>" + str(self.bias) + "</config-bias>"
+        config += "<config-graph>"
+        config += "<config-graph-desc>" + self.graph_desc + "</config-graph-desc>"
+        config += "<config-graph-deg>" + self.getXMLDeg() + "</config-graph-deg>"
+        config += "</config-graph>"
+        return config + "</config>"
 
     # returns XML block containing graph degree information
     def getXMLDeg(self):
