@@ -76,10 +76,10 @@ def generateKCycleGraph(vertices_num: int):
 def generateERGraph(vertices_num: int, p: float):
     g = gt.Graph(directed=False)
     g.add_vertex(vertices_num)
-    for v1 in g.vertices():
-        for v2 in g.vertices():
-            # edge e(v1, v2) will be added with probability p unless it would create a self-loop or a parallel edge -
-            # (1st and 2nd conditions)
-            if g.vertex_index[v1] != g.vertex_index[v2] and g.edge(v1, v2) is None and random.uniform(0, 1) <= p:
+    for i in range(0, vertices_num):
+        for j in range(i + 1, vertices_num):
+            v1: gt.Vertex = g.vertex(i)
+            v2: gt.Vertex = g.vertex(j)
+            if random.uniform(0, 1) <= p:
                 g.add_edge(v1, v2)
     return g

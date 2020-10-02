@@ -36,7 +36,8 @@ class SimulationConfigurator:
     # returns XML block containing graph degree information
     def getXMLDeg(self):
         deg = gg.getDegreeValuesOf(self.graph)
-        degTag = "<min_deg>" + str(deg["min_deg"]) + "</min_deg>"
+        degTag = "<total-edges>" + str(len(list(self.graph.edges()))) + "</total-edges>"
+        degTag += "<min_deg>" + str(deg["min_deg"]) + "</min_deg>"
         degTag += "<avg_deg>" + str(deg["avg_deg"]) + "</avg_deg>"
         degTag += "<max_deg>" + str(deg["max_deg"]) + "</max_deg>"
         return degTag
