@@ -7,15 +7,15 @@ import random
 
 # utility that returns a map containing minimum, average and max degree of a graph
 def getDegreeValuesOf(g: gt.Graph):
-    min_deg = 0
+    min_deg = len(list(g.vertices()))
     max_deg = 0
     avg_deg = 0
     for v in g.vertices():
         v: gt.Vertex = v
         # in_degree is 0 for undirected graphs
-        if v.out_degree() > max_deg:
+        if v.out_degree() + v.in_degree() > max_deg:
             max_deg = v.out_degree() + v.in_degree()
-        if v.out_degree() < min_deg:
+        if v.out_degree() + v.in_degree() < min_deg:
             min_deg = v.out_degree() + v.in_degree()
         avg_deg += v.out_degree() + v.in_degree()
     avg_deg = avg_deg / len(list(g.vertices()))
