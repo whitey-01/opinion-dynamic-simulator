@@ -8,7 +8,7 @@ import python.simulator.graph_generator as gg
 # defines the opinions update rules available for the configurator
 class OpinionUpdateRule(Enum):
     VOTER_MODEL = "voter-rule"
-    MAJORITY_DYNAMICS = "majority-dynamics"
+    MAJORITY_DYNAMIC = "majority-dynamic"
 
 
 # defines an object used to configure the simulation correctly
@@ -17,7 +17,7 @@ class SimulationConfigurator:
     def __init__(self, graph: gt.Graph, bias: float, opinion_update_rule: OpinionUpdateRule,
                  graph_desc: str = "OPTIONAL GRAPH DESCRIPTION"):
         self.graph = graph
-        if opinion_update_rule != OpinionUpdateRule.MAJORITY_DYNAMICS and opinion_update_rule != OpinionUpdateRule.VOTER_MODEL:
+        if opinion_update_rule != OpinionUpdateRule.MAJORITY_DYNAMIC and opinion_update_rule != OpinionUpdateRule.VOTER_MODEL:
             raise Exception("Error:- Invalid opinion update rule!")
         self.opinion_update_rule = opinion_update_rule
         # defines how much agent are biased towards the dominant opinion

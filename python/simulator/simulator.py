@@ -37,8 +37,8 @@ def runSimulationOn(simulation_configurator: sc.SimulationConfigurator):
             g.vertex_properties["opinion"][v] = 1
         else:
             # set its opinion according to the opinion update rule chosen in the configurator
-            if simulation_configurator.opinion_update_rule == sc.OpinionUpdateRule.MAJORITY_DYNAMICS:
-                g = simulateMajorityDynamics(v, g)
+            if simulation_configurator.opinion_update_rule == sc.OpinionUpdateRule.MAJORITY_DYNAMIC:
+                g = simulateMajorityDynamic(v, g)
 
             if simulation_configurator.opinion_update_rule == sc.OpinionUpdateRule.VOTER_MODEL:
                 g = simulateVoterModel(v, g)
@@ -80,7 +80,7 @@ def simulateVoterModel(v: gt.Vertex, g: gt.Graph):
 
 
 # simulates the Majority dynamics update rule
-def simulateMajorityDynamics(v: gt.Vertex, g: gt.Graph):
+def simulateMajorityDynamic(v: gt.Vertex, g: gt.Graph):
     neighbors = list(v.all_neighbors())
     if not len(neighbors):
         return g

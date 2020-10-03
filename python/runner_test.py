@@ -6,13 +6,11 @@ import python.simulator.simulation_configurator as sc
 import python.simulator.graph_generator as gg
 
 # simple main that performs a test by running multiple simulation on a fixed config.
-ITERATIONS = 100
+ITERATIONS = 10
 
-n = 512
+n = 32
 eps = 0.5
-p = (1 - eps) / n
-# p = math.log(n, 2)/n
-print(p)
+p = (1 + eps) / n
 
 graph = gg.generateERGraph(n, p)
 
@@ -21,7 +19,7 @@ simulationConfigurator = sc.SimulationConfigurator(
     graph_desc="Erdos–Renyi n=" + str(n) + ", eps=" + str(eps) + ", p = " + str(p),
     graph=graph,
     bias=0.25,
-    opinion_update_rule=sc.OpinionUpdateRule.MAJORITY_DYNAMICS)
+    opinion_update_rule=sc.OpinionUpdateRule.MAJORITY_DYNAMIC)
 
 
 testConfigurator = tc.TestConfigurator(simulationConfigurator=simulationConfigurator, iterations=ITERATIONS)
