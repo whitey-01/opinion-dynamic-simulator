@@ -6,9 +6,9 @@ import python.simulator.simulation_configurator as sc
 import python.simulator.graph_generator as gg
 
 # simple main that performs a test by running multiple simulation on a fixed config.
-ITERATIONS = 10
+ITERATIONS = 100
 
-n = 32
+n = 2048
 eps = 0.5
 p = (1 + eps) / n
 
