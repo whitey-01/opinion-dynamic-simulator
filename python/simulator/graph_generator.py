@@ -74,8 +74,15 @@ def generateKCycleGraph(vertices_num: int):
 
 # generates an Erdős–Rényi Graph(V,E) where every edge e(u,v) has probability p to be in E
 def generateERGraph(vertices_num: int, p: float):
+    if p >= 1:
+        return generateKCliqueGraph(vertices_num=vertices_num)
+
     g = gt.Graph(directed=False)
     g.add_vertex(vertices_num)
+
+    if p <= 0:
+        return g
+
     for i in range(0, vertices_num):
         for j in range(i + 1, vertices_num):
             v1: gt.Vertex = g.vertex(i)
