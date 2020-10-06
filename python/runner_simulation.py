@@ -6,15 +6,12 @@ import python.simulator.graph_generator as gg
 # simple main that performs a simulation of the process
 
 
-n = 256
-eps = 0.5
-p = (1 - eps) / n
-
-graph = gg.generateERGraph(n, p)
+d = 5
+graph = gg.generateHypercubeGraph(d=d)
 
 
 simulationConfigurator = sc.SimulationConfigurator(
-    graph_desc="Erdos–Renyi n=" + str(n) + ", eps=" + str(eps) + ", p = " + str(p),
+    graph_desc="Ipercubo d=" + str(d),
     graph=graph,
     bias=0.25,
     opinion_update_rule=sc.OpinionUpdateRule.MAJORITY_DYNAMIC)

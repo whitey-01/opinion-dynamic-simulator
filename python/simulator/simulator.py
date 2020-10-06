@@ -36,18 +36,21 @@ def runSimulationOn(simulation_configurator: sc.SimulationConfigurator, animated
     while not absorptionStateReached(g):
         # select UAR a vertex from graph g
         v: gt.Vertex = g.vertex(random.randint(0, len(g.get_vertices()) - 1))
-        # set its opinion to 1 with probability specified in the configurator
+        updated_opinion: int = 0
+
         if random.uniform(0, 1) <= simulation_configurator.bias:
-            g.vertex_properties["opinion"][v] = 1
+            # set its opinion to 1 with probability specified in the configurator
+            updated_opinion = 1
         else:
             # set its opinion according to the opinion update rule chosen in the configurator
             if simulation_configurator.opinion_update_rule == sc.OpinionUpdateRule.MAJORITY_DYNAMIC:
-                g = simulateMajorityDynamic(v, g)
+                updated_opinion = simulateMajorityDynamic(v, g)
 
             if simulation_configurator.opinion_update_rule == sc.OpinionUpdateRule.VOTER_MODEL:
-                g = simulateVoterModel(v, g)
+                updated_opinion = simulateVoterModel(v, g)
 
-        g.vertex_properties["opinion_color"][v] = color_map(g.vertex_properties["opinion"][v])
+        g.vertex_properties["opinion"][v] = updated_opinion
+        g.vertex_properties["opinion_color"][v] = color_map(updated_opinion)
         rounds += 1
 
         evolutionMap[rounds] = (
@@ -82,22 +85,20 @@ def init_properties(g: gt.Graph):
     return g
 
 
-# simulates the Voter model update rule
+# simulates the Voter model update rule, returns the chosen opinion
 def simulateVoterModel(v: gt.Vertex, g: gt.Graph):
     neighbors = list(v.all_neighbors())
     if not len(neighbors):
-        return g
+        return g.vertex_properties["opinion"][v]
     u: gt.Vertex = random.choice(neighbors)
-    g.vertex_properties["opinion"][v] = g.vertex_properties["opinion"][u]
-    g.vertex_properties["opinion_color"][v] = color_map(g.vertex_properties["opinion"][v])
-    return g
+    return g.vertex_properties["opinion"][u]
 
 
-# simulates the Majority dynamics update rule
+# simulates the Majority dynamic update rule, returns the chosen opinion
 def simulateMajorityDynamic(v: gt.Vertex, g: gt.Graph):
     neighbors = list(v.all_neighbors())
     if not len(neighbors):
-        return g
+        return g.vertex_properties["opinion"][v]
 
     opinion0_counter = 0
     opinion1_counter = 0
@@ -109,17 +110,11 @@ def simulateMajorityDynamic(v: gt.Vertex, g: gt.Graph):
             opinion1_counter += 1
 
     if opinion0_counter > opinion1_counter:
-        g.vertex_properties["opinion"][v] = 0
-        g.vertex_properties["opinion_color"][v] = color_map(0)
-        return g
+        return 0
     if opinion1_counter > opinion0_counter:
-        g.vertex_properties["opinion"][v] = 1
-        g.vertex_properties["opinion_color"][v] = color_map(1)
-        return g
+        return 1
 
-    g.vertex_properties["opinion"][v] = random.choice([0, 1])
-    g.vertex_properties["opinion_color"][v] = color_map(g.vertex_properties["opinion"][v])
-    return g
+    return random.choice([0, 1])
 
 
 # checks if the process has reached the absorption state
