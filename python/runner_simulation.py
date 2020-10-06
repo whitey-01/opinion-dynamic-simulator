@@ -6,14 +6,20 @@ import python.simulator.graph_generator as gg
 # simple main that performs a simulation of the process
 
 
-graph = gg.generateERGraph(vertices_num=256, p=1/256)
+n = 128
+eps = 0.5
+p = (1 + eps) / n
 
-config = sc.SimulationConfigurator(graph_desc="Erdos–Renyi 256 nodi, p = 1/n",
-                                   graph=graph,
-                                   bias=0.25,
-                                   opinion_update_rule=sc.OpinionUpdateRule.MAJORITY_DYNAMIC)
+graph = gg.generateERGraph(n, p)
 
-simulationResult: sr.SimulationResult = sim.runSimulationOn(config)
+
+simulationConfigurator = sc.SimulationConfigurator(
+    graph_desc="Erdos–Renyi n=" + str(n) + ", eps=" + str(eps) + ", p = " + str(p),
+    graph=graph,
+    bias=0.25,
+    opinion_update_rule=sc.OpinionUpdateRule.MAJORITY_DYNAMIC)
+
+simulationResult: sr.SimulationResult = sim.runSimulationOn(simulationConfigurator, realTimeAnimation=True)
 
 # print simulation data such as rounds, configuration parameters ecc..
 simulationResult.printSimulationData()

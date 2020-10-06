@@ -20,15 +20,19 @@ def color_map(opinion):
 
 # simulates the process on a graph using the configuration parameters specified in the configurator
 # returns an object containing the results of the simulation
-def runSimulationOn(simulation_configurator: sc.SimulationConfigurator):
+def runSimulationOn(simulation_configurator: sc.SimulationConfigurator, realTimeAnimation: bool = False):
     g: gt.Graph = simulation_configurator.graph
     # initializes the graph with the original opinion data
     g = init_properties(g)
 
     # map that stores the evolution of the graph during rounds saving its properties in a tuple
     evolutionMap = {0: (copy.copy(g.vertex_properties["opinion"]), copy.copy(g.vertex_properties["opinion_color"]))}
-
     rounds = 0
+
+    if realTimeAnimation:
+        win = None
+        layout = gt.sfdp_layout(g)
+
     while not absorptionStateReached(g):
         # select UAR a vertex from graph g
         v: gt.Vertex = g.vertex(random.randint(0, len(g.get_vertices()) - 1))
@@ -48,6 +52,15 @@ def runSimulationOn(simulation_configurator: sc.SimulationConfigurator):
 
         evolutionMap[rounds] = (
             copy.copy(g.vertex_properties["opinion"]), copy.copy(g.vertex_properties["opinion_color"]))
+
+        if realTimeAnimation:
+            win = gt.graph_draw(g=g,
+                                pos=layout,
+                                vertex_fill_color=g.vertex_properties["opinion_color"],
+                                vertex_text=g.vertex_properties["opinion"],
+                                window=win,
+                                return_window=True,
+                                main=False)
 
     # return an object containing the information produced during the simulation
     return sr.SimulationResult(evolutionMap, simulation_configurator)
