@@ -40,18 +40,10 @@ def runSimulationOn(simulation_configurator: sc.SimulationConfigurator, animated
         updated_opinion: int
 
         if random.uniform(0, 1) <= simulation_configurator.bias:
-            # set its opinion to 1 with probability specified in the configurator
+            # get opinion 1 with probability specified in the configurator
             updated_opinion = 1
         else:
-            """
-            # set its opinion according to the opinion update rule chosen in the configurator
-            if simulation_configurator.opinion_update_rule == sc.OpinionUpdateRule.MAJORITY_DYNAMIC:
-                updated_opinion = simulateMajorityDynamic(v, g)
-                
-
-            if simulation_configurator.opinion_update_rule == sc.OpinionUpdateRule.VOTER_MODEL:
-                updated_opinion = simulateVoterModel(v, g)
-            """
+            # get updated opinion according to update rule specified in configurator
             updated_opinion = simulation_configurator.opinion_update_rule.run(g, v)
 
         g.vertex_properties["opinion"][v] = updated_opinion

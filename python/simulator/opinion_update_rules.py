@@ -9,6 +9,8 @@ import random
 class UpdateRuleInterface(ABC):
     @abstractmethod
     def run(self, g: gt.Graph, v: gt.Vertex) -> int:
+        # g is the graph, v is the vertex that will be updated
+        # return the opinion chosen for v
         pass
 
 
