@@ -2,6 +2,7 @@ import python.simulator.simulator as sim
 import python.simulator.simulation_configurator as sc
 import python.simulator.simulation_result as sr
 import python.simulator.graph_generator as gg
+import python.simulator.opinion_update_rules as our
 
 # simple main that performs a simulation of the process
 
@@ -14,7 +15,7 @@ simulationConfigurator = sc.SimulationConfigurator(
     graph_desc="Ipercubo d=" + str(d),
     graph=graph,
     bias=0.25,
-    opinion_update_rule=sc.OpinionUpdateRule.MAJORITY_DYNAMIC)
+    opinion_update_rule=our.MajoritySimulator())
 
 simulationResult: sr.SimulationResult = sim.runSimulationOn(simulationConfigurator, animated=True)
 

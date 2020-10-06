@@ -8,12 +8,13 @@ import copy
 
 # module that performs a simulation and holds the implementation of the opinion-update rules
 
+
 # return correct color for a vertex based on its opinion
 def color_map(opinion):
     if opinion == 0:
         # red
         return mc.hex2color("#f3722c") + (1,)
-    else:
+    if opinion == 1:
         # green
         return mc.hex2color("#43aa8b") + (1,)
 
@@ -42,12 +43,16 @@ def runSimulationOn(simulation_configurator: sc.SimulationConfigurator, animated
             # set its opinion to 1 with probability specified in the configurator
             updated_opinion = 1
         else:
+            """
             # set its opinion according to the opinion update rule chosen in the configurator
             if simulation_configurator.opinion_update_rule == sc.OpinionUpdateRule.MAJORITY_DYNAMIC:
                 updated_opinion = simulateMajorityDynamic(v, g)
+                
 
             if simulation_configurator.opinion_update_rule == sc.OpinionUpdateRule.VOTER_MODEL:
                 updated_opinion = simulateVoterModel(v, g)
+            """
+            updated_opinion = simulation_configurator.opinion_update_rule.run(g, v)
 
         g.vertex_properties["opinion"][v] = updated_opinion
         g.vertex_properties["opinion_color"][v] = color_map(updated_opinion)
@@ -83,38 +88,6 @@ def init_properties(g: gt.Graph):
     for v in g.vertices():
         g.vertex_properties["opinion_color"][v] = color_map(0)
     return g
-
-
-# simulates the Voter model update rule, returns the chosen opinion
-def simulateVoterModel(v: gt.Vertex, g: gt.Graph):
-    neighbors = list(v.all_neighbors())
-    if not len(neighbors):
-        return g.vertex_properties["opinion"][v]
-    u: gt.Vertex = random.choice(neighbors)
-    return g.vertex_properties["opinion"][u]
-
-
-# simulates the Majority dynamic update rule, returns the chosen opinion
-def simulateMajorityDynamic(v: gt.Vertex, g: gt.Graph):
-    neighbors = list(v.all_neighbors())
-    if not len(neighbors):
-        return g.vertex_properties["opinion"][v]
-
-    opinion0_counter = 0
-    opinion1_counter = 0
-
-    for vertex in neighbors:
-        if g.vertex_properties["opinion"][vertex] == 0:
-            opinion0_counter += 1
-        else:
-            opinion1_counter += 1
-
-    if opinion0_counter > opinion1_counter:
-        return 0
-    if opinion1_counter > opinion0_counter:
-        return 1
-
-    return random.choice([0, 1])
 
 
 # checks if the process has reached the absorption state

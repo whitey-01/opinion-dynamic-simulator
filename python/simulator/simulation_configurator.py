@@ -1,24 +1,17 @@
 import graph_tool as gt
-from enum import Enum
 import python.simulator.graph_generator as gg
+import python.simulator.opinion_update_rules as our
 
 
 # module used to define how a simulation must be configured
-
-# defines the opinions update rules available for the configurator
-class OpinionUpdateRule(Enum):
-    VOTER_MODEL = "voter-rule"
-    MAJORITY_DYNAMIC = "majority-dynamic"
 
 
 # defines an object used to configure the simulation correctly
 # holds the graph and other config parameters
 class SimulationConfigurator:
-    def __init__(self, graph: gt.Graph, bias: float, opinion_update_rule: OpinionUpdateRule,
+    def __init__(self, graph: gt.Graph, bias: float, opinion_update_rule: our.UpdateRuleInterface,
                  graph_desc: str = "OPTIONAL GRAPH DESCRIPTION"):
         self.graph = graph
-        if opinion_update_rule != OpinionUpdateRule.MAJORITY_DYNAMIC and opinion_update_rule != OpinionUpdateRule.VOTER_MODEL:
-            raise Exception("Error:- Invalid opinion update rule!")
         self.opinion_update_rule = opinion_update_rule
         # defines how much agent are biased towards the dominant opinion
         self.bias = bias
@@ -27,7 +20,7 @@ class SimulationConfigurator:
     # returns a xml string of the configurator
     def configXMLSerializer(self):
         config = "<config>"
-        config += "<config-update-rule>" + self.opinion_update_rule.value + "</config-update-rule>"
+        config += "<config-update-rule>" + self.opinion_update_rule.__class__.__name__ + "</config-update-rule>"
         config += "<config-bias>" + str(self.bias) + "</config-bias>"
         config += "<config-graph>"
         config += "<config-graph-desc>" + self.graph_desc + "</config-graph-desc>"
