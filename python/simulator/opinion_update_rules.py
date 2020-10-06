@@ -4,6 +4,7 @@ import random
 
 
 # module containing interface and various opinion update rules
+# you can define here your preferred update rule by implementing UpdateRuleInterface.run()
 
 # interface that defines the method to perform a certain opinion update rule
 class UpdateRuleInterface(ABC):
