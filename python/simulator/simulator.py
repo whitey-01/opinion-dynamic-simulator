@@ -36,7 +36,7 @@ def runSimulationOn(simulation_configurator: sc.SimulationConfigurator, animated
     while not absorptionStateReached(g):
         # select UAR a vertex from graph g
         v: gt.Vertex = g.vertex(random.randint(0, len(g.get_vertices()) - 1))
-        updated_opinion: int = 0
+        updated_opinion: int
 
         if random.uniform(0, 1) <= simulation_configurator.bias:
             # set its opinion to 1 with probability specified in the configurator
