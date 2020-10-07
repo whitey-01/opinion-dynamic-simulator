@@ -7,12 +7,14 @@ import python.simulator.opinion_update_rules as our
 # simple main that performs a simulation of the process
 
 
-d = 5
-graph = gg.generateHypercubeGraph(d=d)
+n = 128
+eps = 0.5
+p = (1 + eps) / n
+graph = gg.generateERGraph(n, p)
 
 
 simulationConfigurator = sc.SimulationConfigurator(
-    graph_desc="Ipercubo d=" + str(d),
+    graph_desc="Erdos–Renyi n=" + str(n) + ", p = " + str(p),
     graph=graph,
     bias=0.25,
     opinion_update_rule=our.MajoritySimulator())
