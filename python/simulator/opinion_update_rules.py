@@ -6,7 +6,7 @@ import random
 # module containing interface and various opinion update rules
 # you can define here your preferred update rule by implementing UpdateRuleInterface.run()
 
-# interface that defines the method to perform a certain opinion update rule
+# interface that defines objects that will implement a specific update rule
 class UpdateRuleInterface(ABC):
     @abstractmethod
     def run(self, g: gt.Graph, v: gt.Vertex) -> int:
@@ -19,6 +19,7 @@ class UpdateRuleInterface(ABC):
 class MajoritySimulator(UpdateRuleInterface):
     def run(self, g: gt.Graph, v: gt.Vertex) -> int:
         neighbors = list(v.all_neighbors())
+
         if not len(neighbors):
             return g.vertex_properties["opinion"][v]
 
@@ -43,7 +44,9 @@ class MajoritySimulator(UpdateRuleInterface):
 class VoterSimulator(UpdateRuleInterface):
     def run(self, g: gt.Graph, v: gt.Vertex) -> int:
         neighbors = list(v.all_neighbors())
+
         if not len(neighbors):
             return g.vertex_properties["opinion"][v]
+
         u: gt.Vertex = random.choice(neighbors)
         return g.vertex_properties["opinion"][u]
