@@ -9,7 +9,7 @@ import python.simulator.opinion_update_rules as our
 # simple main that performs a test by running multiple simulation on a fixed config.
 ITERATIONS = 10
 
-n = 4096
+n = 128
 p = math.log(n, 2)/n
 
 graph = gg.generateERGraph(n, p)
@@ -24,5 +24,5 @@ simulationConfigurator = sc.SimulationConfigurator(
 
 testConfigurator = tc.TestConfigurator(simulationConfigurator=simulationConfigurator, iterations=ITERATIONS)
 
-testResult = ts.runTest(testConfigurator=testConfigurator)
+testResult: tr.TestResult = ts.runTest(testConfigurator=testConfigurator)
 testResult.saveTest(draw=True)

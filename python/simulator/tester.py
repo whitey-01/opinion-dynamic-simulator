@@ -4,7 +4,8 @@ import python.simulator.simulation_result as sr
 import python.simulator.simulator as sim
 
 
-# return an object containing test results
+# returns an object containing test results.
+# only ids and rounds of each simulation are stored due to optimization problem
 def runTest(testConfigurator: tc.TestConfigurator):
     iterations = testConfigurator.iterations
     simulations = []
