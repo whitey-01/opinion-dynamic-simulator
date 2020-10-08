@@ -44,7 +44,8 @@ class TestResult:
         test += self.testConfigurator.configXMLSerializer()
         test += "<test-simulations>"
 
-        mean:float = 0
+        mean = self.calcMean()
+
         for result in self.results:
             simulation_tag = "<simulation>" \
                              "<simulation-id>" + result["simulation_id"] + "</simulation-id>" \
@@ -52,9 +53,7 @@ class TestResult:
                 result["simulation_rounds"]) + "</simulation-rounds>" \
                                                "</simulation>"
             test += simulation_tag
-            mean += result["simulation_rounds"]
         test += "</test-simulations>"
-        mean = round((mean / self.testConfigurator.iterations), 2)
         test += "<!-- average rounds needed to reach absorbing state -->"
         test += "<test-average-rounds>" + str(mean) + "</test-average-rounds>"
         test += "<!-- standard deviation from the mean -->"
@@ -75,3 +74,10 @@ class TestResult:
 
         variance = variance / (self.testConfigurator.iterations - 1)
         return round(math.sqrt(variance), 2)
+
+    def calcMean(self):
+        mean = 0
+        for result in self.results:
+            mean += result["simulation_rounds"]
+        mean = round((mean / self.testConfigurator.iterations), 2)
+        return mean

@@ -35,7 +35,7 @@ def runSimulationOn(simulation_configurator: sc.SimulationConfigurator, animated
         layout = gt.sfdp_layout(g)
 
     while not absorptionStateReached(g):
-        # select UAR a vertex from graph g
+        # select uniformly at random a vertex from graph g
         v: gt.Vertex = g.vertex(random.randint(0, len(g.get_vertices()) - 1))
         updated_opinion: int
 
