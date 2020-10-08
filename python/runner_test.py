@@ -24,8 +24,5 @@ simulationConfigurator = sc.SimulationConfigurator(
 
 testConfigurator = tc.TestConfigurator(simulationConfigurator=simulationConfigurator, iterations=ITERATIONS)
 
-# returns a list of dicts containing simulations id and rounds
-results = ts.runTest(testConfigurator=testConfigurator)
-
-testResult = tr.TestResult(testConfigurator=testConfigurator, results=results)
+testResult = ts.runTest(testConfigurator=testConfigurator)
 testResult.saveTest(draw=True)
