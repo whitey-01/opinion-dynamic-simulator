@@ -24,7 +24,7 @@ class TestResult:
         test_dir = TESTS_DIR + "/t_" + self.test_id + "/"
         os.mkdir(test_dir)
 
-        self.exportTestOutputAsXML(test_dir=test_dir)
+        self.__exportTestOutputAsXML(test_dir=test_dir)
         self.testConfigurator.simulationConfigurator.graph.save(test_dir + "graph.xml")
 
         if draw:
@@ -37,14 +37,14 @@ class TestResult:
                           adjust_aspect=False,
                           bg_color=(0.09411764705882353, 0.11372549019607843, 0.15294117647058825, 1))
 
-    def exportTestOutputAsXML(self, test_dir: str):
+    def __exportTestOutputAsXML(self, test_dir: str):
         test = "<test>"
         test += "<test-id>" + self.test_id + "</test-id>"
         test += "<!-- Test Configuration -->"
         test += self.testConfigurator.configXMLSerializer()
         test += "<test-simulations>"
 
-        mean = self.calcMean()
+        mean = self.__calcMean()
 
         for result in self.results:
             simulation_tag = "<simulation>" \
@@ -57,7 +57,7 @@ class TestResult:
         test += "<!-- average rounds needed to reach absorbing state -->"
         test += "<test-average-rounds>" + str(mean) + "</test-average-rounds>"
         test += "<!-- standard deviation from the mean -->"
-        test += "<test-standard-deviation>" + str(self.calcStandardDeviation(mean)) + "</test-standard-deviation>"
+        test += "<test-standard-deviation>" + str(self.__calcStandardDeviation(mean)) + "</test-standard-deviation>"
         test += "</test>"
 
         dom = xml.dom.minidom.parseString(test)
@@ -67,7 +67,7 @@ class TestResult:
 
         print("Test saved with ID " + self.test_id)
 
-    def calcStandardDeviation(self, mean: float):
+    def __calcStandardDeviation(self, mean: float):
         variance = 0
         for result in self.results:
             variance += math.pow((result["simulation_rounds"] - mean), 2)
@@ -75,7 +75,7 @@ class TestResult:
         variance = variance / (self.testConfigurator.iterations - 1)
         return round(math.sqrt(variance), 2)
 
-    def calcMean(self):
+    def __calcMean(self):
         mean = 0
         for result in self.results:
             mean += result["simulation_rounds"]

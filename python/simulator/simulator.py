@@ -10,7 +10,7 @@ import copy
 
 
 # return correct color for a vertex based on its opinion
-def color_map(opinion):
+def __color_map(opinion):
     if opinion == 0:
         # red
         return mc.hex2color("#f3722c") + (1,)
@@ -24,7 +24,7 @@ def color_map(opinion):
 def runSimulationOn(simulation_configurator: sc.SimulationConfigurator, animated: bool = False):
     g: gt.Graph = simulation_configurator.graph
     # initializes the graph with the original opinion data
-    g = init_properties(g)
+    g = __init_properties(g)
 
     # map that stores the evolution of the graph during rounds saving its properties in a tuple
     evolutionMap = {0: (copy.copy(g.vertex_properties["opinion"]), copy.copy(g.vertex_properties["opinion_color"]))}
@@ -34,7 +34,7 @@ def runSimulationOn(simulation_configurator: sc.SimulationConfigurator, animated
         win = None
         layout = gt.sfdp_layout(g)
 
-    while not absorptionStateReached(g):
+    while not __absorptionStateReached(g):
         # select uniformly at random a vertex from graph g
         v: gt.Vertex = g.vertex(random.randint(0, len(g.get_vertices()) - 1))
         updated_opinion: int
@@ -47,7 +47,7 @@ def runSimulationOn(simulation_configurator: sc.SimulationConfigurator, animated
             updated_opinion = simulation_configurator.opinion_update_rule.run(g, v)
 
         g.vertex_properties["opinion"][v] = updated_opinion
-        g.vertex_properties["opinion_color"][v] = color_map(updated_opinion)
+        g.vertex_properties["opinion_color"][v] = __color_map(updated_opinion)
         rounds += 1
 
         evolutionMap[rounds] = (
@@ -68,7 +68,7 @@ def runSimulationOn(simulation_configurator: sc.SimulationConfigurator, animated
 
 
 # initializes the graph with the original opinion data
-def init_properties(g: gt.Graph):
+def __init_properties(g: gt.Graph):
     # sets properties used to keep trace of the opinion of each vertex
     opinion = g.new_vertex_property("int", 0)
     g.vertex_properties["opinion"] = opinion
@@ -78,12 +78,12 @@ def init_properties(g: gt.Graph):
     g.vertex_properties["opinion_color"] = opinion_color
 
     for v in g.vertices():
-        g.vertex_properties["opinion_color"][v] = color_map(0)
+        g.vertex_properties["opinion_color"][v] = __color_map(0)
     return g
 
 
 # checks if the process has reached the absorption state
-def absorptionStateReached(g: gt.Graph):
+def __absorptionStateReached(g: gt.Graph):
     for vertex in g.vertices():
         if g.vertex_properties["opinion"][vertex] == 0:
             return False

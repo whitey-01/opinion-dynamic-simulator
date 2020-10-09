@@ -35,7 +35,7 @@ class SimulationResult:
         evolution_img_dir = simulation_dir + "evolution_imgs/"
         os.mkdir(evolution_img_dir)
 
-        self.exportSimulationOutputAsXML(dir=simulation_dir)
+        self.__exportSimulationOutputAsXML(dir=simulation_dir)
 
         # exports graph structure  in xml: key0 and key1 are respectively opinion property and opinion color property
         self.original_graph.save(simulation_dir + "graph.xml")
@@ -74,7 +74,8 @@ class SimulationResult:
                           adjust_aspect=False,
                           bg_color=(0.09411764705882353, 0.11372549019607843, 0.15294117647058825, 1))
 
-    def exportSimulationOutputAsXML(self, dir):
+    # should be private
+    def __exportSimulationOutputAsXML(self, dir):
         simulations_file = "<simulation>"
         simulations_file += "<simulation-id>" + self.simulation_id + "</simulation-id>"
         simulations_file += "<!-- Configuration used during the simulation -->"

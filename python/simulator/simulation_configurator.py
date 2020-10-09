@@ -24,12 +24,13 @@ class SimulationConfigurator:
         config += "<config-bias>" + str(self.bias) + "</config-bias>"
         config += "<config-graph>"
         config += "<config-graph-desc>" + self.graph_desc + "</config-graph-desc>"
-        config += "<config-graph-deg>" + self.getXMLDeg() + "</config-graph-deg>"
+        config += "<config-graph-deg>" + self.__getXMLDeg() + "</config-graph-deg>"
         config += "</config-graph>"
         return config + "</config>"
 
     # returns XML block containing graph degree information
-    def getXMLDeg(self):
+    # should be class private
+    def __getXMLDeg(self):
         deg = gg.getDegreeValuesOf(self.graph)
         degTag = "<total-edges>" + str(len(list(self.graph.edges()))) + "</total-edges>"
         degTag += "<min_deg>" + str(deg["min_deg"]) + "</min_deg>"
