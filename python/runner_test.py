@@ -7,9 +7,9 @@ import python.simulator.graph_generator as gg
 import python.simulator.opinion_update_rules as our
 
 # simple main that performs a test by running multiple simulation on a fixed config.
-ITERATIONS = 10
+ITERATIONS = 100
 
-n = 128
+n = 4096
 p = math.log(n, 2)/n
 
 graph = gg.generateERGraph(n, p)
