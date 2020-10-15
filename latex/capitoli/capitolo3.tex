@@ -15,7 +15,7 @@ Di seguito \'e riportato lo pseudocodice delle funzioni principali utilizzate da
 
 \begin{algorithm}[H]
   \For{v $\in$ graph.vertices}{
-    \If{v.opinion $==$ 0}{
+    \If{v.opinion == 0}{
         \Return False\;
     }
   }
@@ -33,7 +33,7 @@ Di seguito \'e riportato lo pseudocodice delle funzioni principali utilizzate da
 
   \While{$\neg$ absorptionStateReached(graph)}
   {
-    v $\gets$ graph.getRandomVertex()\;
+    v $\gets$ random.choice(graph.vertices)\;
     \eIf{random(0,1) $\leq$ bias}{
       v.opinion $\gets$ 1\;
     }{
@@ -48,12 +48,12 @@ Di seguito \'e riportato lo pseudocodice delle funzioni principali utilizzate da
  
 \hfill \break
 
-Notare come \emph{config.opinionUpdateRule} sia un oggetto ottenuto tramite un'interfaccia che permette di implementare la dinamica di aggiornamento preferita sovrascrivendo il metodo run. Di seguito l'implementazione in pseudocodice del metodo \emph{run} di Majority-Dynamics.\\*
+Notare come \emph{config.opinionUpdateRule} sia un oggetto ottenuto tramite un'interfaccia che permette di implementare la dinamica di aggiornamento preferita eseguendo un \emph{override} del metodo \emph{run}. Di seguito l'implementazione in pseudocodice di tale metodo per Majority-Dynamics.\\*
 
 \begin{algorithm}[H]
-  neighbors \gets v.neighbors()$\;$
+  neighbors $\gets$ v.neighbors()\;
   \If{$\neg$ neighbors}{
-    \Return v.opinion$\;$
+    \Return v.opinion\;
   }
   counter0 $\gets$ 0\;
   counter1 $\gets$ 0\;
@@ -62,7 +62,7 @@ Notare come \emph{config.opinionUpdateRule} sia un oggetto ottenuto tramite un'i
     \If{v.opinion == 1}{
         counter1 $\gets$ counter1+1\;
     }
-    \If{v.opinion $==$ 0}{
+    \If{v.opinion == 0}{
         counter0 $\gets$ counter0+1\;
     }
   }
