@@ -15,7 +15,7 @@ class UpdateRuleInterface(ABC):
         pass
 
 
-# implementation of Majority Dynamic update rule
+# implementation of Majority Dynamics update rule
 class MajoritySimulator(UpdateRuleInterface):
     def run(self, g: gt.Graph, v: gt.Vertex) -> int:
         neighbors = list(v.all_neighbors())
