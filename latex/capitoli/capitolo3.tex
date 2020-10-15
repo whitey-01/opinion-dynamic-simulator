@@ -14,63 +14,67 @@ Per poter comparare ed analizzare statisticamente i tempi di assorbimento, ho sv
 Di seguito \'e riportato lo pseudocodice delle funzioni principali utilizzate dal software.\\*
 
 \begin{algorithm}[H]
-  \For{$v \in graph.vertices$}{
-    \If{$v.opinion == 0$}{
+  \For{v $\in$ graph.vertices}{
+    \If{v.opinion $==$ 0}{
         \Return False\;
     }
   }
   \Return True\;
-  \caption{absorptionStateReached($graph$: GraphTool.Graph)}
+\caption{absorptionStateReached(\emph{graph}: GraphTool.Graph)}
 \end{algorithm}
+ 
  \hfill \break
+ 
 \begin{algorithm}[H]
-  $graph \gets config.graph$\;
-  $bias \gets config.bias$\;
-  $updateRule \gets config.opinionUpdateRule$\;
-  $rounds \gets 0$\;
+  graph $\gets$ config.graph\;
+  bias $\gets$ config.bias\;
+  updateRule $\gets$ config.opinionUpdateRule\;
+  rounds $\gets$ 0\;
 
-  \While{$\neg$ $absorptionStateReached(graph)$}
+  \While{$\neg$ absorptionStateReached(graph)}
   {
-    $v \gets graph.getRandomVertex()$\;
-    \eIf{$random(0,1) \leq bias$}{
-      $v.opinion \gets 1$\;
+    v $\gets$ graph.getRandomVertex()\;
+    \eIf{random(0,1) $\leq$ bias}{
+      v.opinion $\gets$ 1\;
     }{
-        $v.opinion \gets updateRule.run(graph,v)$\;
+        v.opinion $\gets$ updateRule.run(graph,v)\;
     }
-    $rounds \gets rounds + 1$
+    rounds $\gets$ rounds + 1\;
   }
-  $simulationResult \gets \text{new } SimulationResult(config, rounds)$\;
-  \Return $simulationResult$\;
-  \caption{runSimulationOn($config$: SimulationConfigurator)}
+  simulationResult $\gets$ \emph{new} SimulationResult(config, rounds)\;
+  \Return simulationResult\;
+\caption{runSimulationOn(\emph{config}: SimulationConfigurator)}
 \end{algorithm}
- \hfill \break
-Notare come \emph{updateRule} sia un oggetto ottenuto tramite un'interfaccia che permette di implementare la dinamica di aggiornamento preferita tramite il metodo run. Di seguito l'implementazione di Majority-Dynamics.\\*
+ 
+\hfill \break
+
+Notare come \emph{config.opinionUpdateRule} sia un oggetto ottenuto tramite un'interfaccia che permette di implementare la dinamica di aggiornamento preferita sovrascrivendo il metodo run. Di seguito l'implementazione in pseudocodice del metodo \emph{run} di Majority-Dynamics.\\*
 
 \begin{algorithm}[H]
-  $neighbors \gets v.neighbors()$\;
-  \If{$\neg$ $neighbors$}{
-    \Return $v.opinion$\;
+  neighbors \gets v.neighbors()$\;$
+  \If{$\neg$ neighbors}{
+    \Return v.opinion$\;$
   }
-  $counter0 \gets 0$\;
-  $counter1 \gets 0$\;
-  \For{$v \in neighbors$}{
-    \If{$v.opinion == 1$}{
-        $counter1 \gets counter1+1$\;
+  counter0 $\gets$ 0\;
+  counter1 $\gets$ 0\;
+  
+  \For{v $\in$ neighbors}{
+    \If{v.opinion == 1}{
+        counter1 $\gets$ counter1+1\;
     }
-    \If{$v.opinion == 0$}{
-        $counter0 \gets counter0+1$\;
+    \If{v.opinion $==$ 0}{
+        counter0 $\gets$ counter0+1\;
     }
   }
   
-  \If{$counter0 > counter1$}{
+  \If{counter0 $>$ counter1}{
         \Return 0\;
   }
-  \If{$counter1 > counter0$}{
+  \If{counter1 $>$ counter0}{
         \Return 1\;
   }
-  
-  \Return $random.choice([0,1])$\;
-  \caption{Majority-Dynamics.run($graph$: GraphTool.Graph, $v$: GraphTool.Vertex)}
+  \Return random.choice([0,1])$\;$
+\caption{MajorityDynamics.run(\emph{graph}: GraphTool.Graph, \emph{v}: GraphTool.Vertex)}
 \end{algorithm}
 
 \section{Analisi di Clique, Ipercubo e Ciclo}
