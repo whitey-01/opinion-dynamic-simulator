@@ -2,16 +2,19 @@
 \begin{document}
 
 \chapter{Studi svolti e Analisi dei risultati}
-Basandomi sui risultati descritti nell'articolo in esame [1] e riportati nel precedente capitolo, ho tentato di rispondere ad alcune delle domande rimaste insolute.\\*
+Basandomi sui risultati descritti nell'articolo in esame \cite{DBLP:journals/corr/abs-2008-13589} e riportati nel precedente capitolo, ho tentato di rispondere ad alcune delle domande rimaste insolute.\\*
 La mia attenzione \'e stata rivolta in particolare al tempo di assorbimento che si ottiene adottando Majority-Dynamics su alcune topologie quando il bias \'e inferiore a $\frac{1}{2}$.\\*
-Per poter comparare ed analizzare statisticamente i tempi di assorbimento, ho sviluppato un software in grado di simulare il modello preso in esame sulle seguenti topologie:
- \begin{itemize}
+Le topologie analizzate sono state:
+\begin{itemize}
 \item Ipercubo
 \item Clique
 \item Ciclo
-\item Modello di Erd{\"o}s R\'enyi G($n$,$p$)
+\item Modello di Erd{\"o}s R\'enyi G($n$,$p$) \cite{Erdos:1959:pmd}
 \end{itemize}
-Di seguito \'e riportato lo pseudocodice delle funzioni principali utilizzate dal software.\\*
+
+\section{Cenni al software di simulazione}
+Per ottenere e, successivamente, analizzare i tempi di assorbimento, ho sviluppato un software in grado di simulare i processi descritti nel modello preso in esame.
+Di seguito \'e riportato lo pseudocodice di alcune delle funzioni principali utilizzate.\\*
 
 \begin{algorithm}[H]
   \For{v $\in$ graph.vertices}{
@@ -73,23 +76,23 @@ Notare come \emph{config.opinionUpdateRule} sia un oggetto ottenuto tramite un'i
   \If{counter1 $>$ counter0}{
         \Return 1\;
   }
-  \Return random.choice([0,1])$\;$
+  \Return random.choice([0,1])\;
 \caption{MajorityDynamics.run(\emph{graph}: GraphTool.Graph, \emph{v}: GraphTool.Vertex)}
 \end{algorithm}
 
 \section{Analisi di Clique, Ipercubo e Ciclo}
 I primi test eseguiti sono serviti a verificare l'accuratezza del software e correggerne eventuali errori. Ogni test \'e composto da 100 simulazioni, configurate con Majority-Dynamics e bias pari a $\frac{1}{2}$.\\*
 I test sono stati eseguiti su Ipercubi, Cliques e Cicli, in dimensioni che vanno da $2^{5^{\mathrm{}}}$ fino a $2^{12^{\mathrm{}}}$ vertici.\\*
-I risultati ottenuti sono perfettamente in linea con quanto dimostrato teoricamente in  ``Biased Opinion Dynamics'' [1]. Per quanto riguarda il Ciclo, il tempo di assorbimento \'e stato pari a $O(\frac{1}{\alpha}n\log{}n)$. \\*
-Riguardo Clique e Ipercubo, per i quali il grado minimo \'e pari a $\Omega(\log{}n)$, il tempo di assorbimento con bias pari a $\frac{1}{2}$ si \'e rivelato essere $O(n\log{}n)$, anche questa volta confermando quanto evidenziato dall'articolo [1].\\*
+I risultati ottenuti sono perfettamente in linea con quanto dimostrato teoricamente in ``Biased Opinion Dynamics'' \cite{DBLP:journals/corr/abs-2008-13589}. Per quanto riguarda il Ciclo, il tempo di assorbimento \'e stato pari a $O(\frac{1}{\alpha}n\log{}n)$. \\*
+Riguardo Clique e Ipercubo, per i quali il grado minimo \'e pari a $\Omega(\log{}n)$, il tempo di assorbimento con bias pari a $\frac{1}{2}$ si \'e rivelato essere $O(n\log{}n)$, anche questa volta confermando quanto evidenziato dall'articolo \cite{DBLP:journals/corr/abs-2008-13589}.\\*
 Una volta appurato che il software simulasse correttamente i processi descritti, ottenendo risultati conformi a quanto atteso, sono stati eseguiti test metodologicamente analoghi ai precedenti, adottando per\'o un bias verso l'opinione dominante pari a $\frac{1}{4}$, di fatto dimezzandolo.\\*
 Per quanto riguarda il Ciclo e la Clique, sono stati ancora una volta confermati i risultati attesi.
 Lo stato di assorbimento per il Ciclo \'e stato nuovamente raggiunto in $O(\frac{1}{\alpha}n\log{}n)$ passi in valore atteso. Nello specifico, dimezzando il valore del bias, i tempi di assorbimento per tale topologia sono raddoppiati, suggerendo una proporzionalit\'a inversa tra il tempo di assorbimento e il valore del bias.\\*
 D'altra parte, come previsto, \'e stato impossibile ultimare i test per la Clique, in quanto, con un bias inferiore a $\frac{1}{2}$, il numero di passi necessari a raggiungere lo stato di assorbimento \'e diventato esponenziale nel grado minimo ($n-1$ per le Clique), di fatto rendendo impossibile lo svolgimento dei test gi\'a dalla dimensione di $2^{6^{\mathrm{}}}$.\\*
-L'articolo in esame [1] lascia aperta la domanda inerente al comportamento dell'Ipercubo con un bias cos\'i basso. Dai risultati dei test si evince come l'Ipercubo abbia un comportamento assimilabile a quello del Ciclo, raggiungendo perci\'o lo stato di assorbimento in $O(n\log{}n)$ passi.
+L'articolo in esame \cite{DBLP:journals/corr/abs-2008-13589} lascia aperta la domanda inerente al comportamento dell'Ipercubo con un bias cos\'i basso. Dai risultati dei test si evince come l'Ipercubo abbia un comportamento assimilabile a quello del Ciclo, raggiungendo perci\'o lo stato di assorbimento in $O(n\log{}n)$ passi.
 \section{Analisi del Modello di Erd{\"o}s R\'enyi}
 Questa sezione \'e dedicata all'analisi dei tempi di assorbimento per topologie non regolari, cio\'e grafi per i quali i vertici non condividono lo stesso grado.\\
-Tali topologie sono state generate scrivendo un algoritmo aleatorio basato sul Modello di Erd{\"o}s R\'enyi G($n$,$p$)[2].\\*
+Tali topologie sono state generate scrivendo un algoritmo aleatorio basato sul Modello di Erd{\"o}s R\'enyi G($n$,$p$) \cite{Erdos:1959:pmd}.\\*
 In tale modello, dato un grafo G($V$,$E$) con $|V|$ = $n$,
 \begin{equation}
     \forall \: u,v \in V,\; P((u,v) \in E)=p.
@@ -124,7 +127,7 @@ Le topologie prese in considerazione hanno dimensioni che vanno da $2^{5^{\mathr
 \caption*{Esempi ottenuti utilizzando le probabilit\'a descritte. $n$=256, $\epsilon$=$\frac{1}{2}$}
 \end{figure}
 I risultati dei test descrivono un andamento meno prevedibile di quanto ci si potesse aspettare.\\*
-Per valori di $p$ che si allontanano dallo 0 il tempo di assorbimento inizia a diminuire, mentre gli studi compiuti sulla Clique [1] evidenziano una crescita esponenziale nel grado minimo quando $p$ tende a 1. La curva che si ottiene perci\'o fissando $n$ e facendo variare $p$ non risulta essere monotona crescente, in contrasto con quanto atteso.\\*
+Per valori di $p$ che si allontanano dallo 0 il tempo di assorbimento inizia a diminuire, mentre gli studi compiuti sulla Clique \cite{DBLP:journals/corr/abs-2008-13589} evidenziano una crescita esponenziale nel grado minimo quando $p$ tende a 1. La curva che si ottiene perci\'o fissando $n$ e facendo variare $p$ non risulta essere monotona crescente, in contrasto con quanto atteso.\\*
 Per indagare tale comportamento in modo pi\'u approfondito, ho eseguito ulteriori test con la seguente configurazione:
 \begin{itemize}
     \item $n=512$ e $n=1024$
