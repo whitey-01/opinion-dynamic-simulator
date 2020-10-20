@@ -1,7 +1,7 @@
 \documentclass[../Tesi.tex]{subfiles}
 \begin{document}
 
-\chapter{Studi svolti e Analisi dei risultati}
+\chapter{Studi svolti e Analisi dei Risultati}
 Basandomi sui risultati descritti nell'articolo in esame \cite{DBLP:journals/corr/abs-2008-13589} e riportati nel precedente capitolo, ho tentato di rispondere ad alcune delle domande rimaste insolute.\\*
 La mia attenzione \'e stata rivolta in particolare al tempo di assorbimento che si ottiene adottando Majority-Dynamics su alcune topologie quando il bias \'e inferiore a $\frac{1}{2}$.\\*
 Le topologie analizzate sono state:
@@ -83,9 +83,19 @@ Notare come \emph{config.opinionUpdateRule} sia un oggetto ottenuto tramite un'i
 \section{Analisi di Clique, Ipercubo e Ciclo}
 I primi test eseguiti sono serviti a verificare l'accuratezza del software e correggerne eventuali errori. Ogni test \'e composto da 100 simulazioni, configurate con Majority-Dynamics e bias pari a $\frac{1}{2}$.\\*
 I test sono stati eseguiti su Ipercubi, Cliques e Cicli, in dimensioni che vanno da $2^{5^{\mathrm{}}}$ fino a $2^{12^{\mathrm{}}}$ vertici.\\*
-I risultati ottenuti sono perfettamente in linea con quanto dimostrato teoricamente in ``Biased Opinion Dynamics'' \cite{DBLP:journals/corr/abs-2008-13589}. Per quanto riguarda il Ciclo, il tempo di assorbimento \'e stato pari a $O(\frac{1}{\alpha}n\log{}n)$. \\*
-Riguardo Clique e Ipercubo, per i quali il grado minimo \'e pari a $\Omega(\log{}n)$, il tempo di assorbimento con bias pari a $\frac{1}{2}$ si \'e rivelato essere $O(n\log{}n)$, anche questa volta confermando quanto evidenziato dall'articolo \cite{DBLP:journals/corr/abs-2008-13589}.\\*
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{imgs/Test/Test_05.png}
+    \caption*{Test con $\alpha = \frac{1}{2}$}
+\end{figure}
+I risultati ottenuti sono perfettamente in linea con quanto dimostrato teoricamente in \emph{Biased Opinion Dynamics} \cite{DBLP:journals/corr/abs-2008-13589}. Per quanto riguarda il Ciclo, il tempo di assorbimento \'e stato pari a $O(\frac{1}{\alpha}n\log{}n)$. \\*
+Riguardo Clique e Ipercubo, per i quali il grado minimo \'e pari a $\Omega(\log{}n)$, il tempo di assorbimento con bias pari a $\frac{1}{2}$ si \'e rivelato essere $O(n\log{}n)$, anche questa volta confermando quanto evidenziato nell'articolo \cite{DBLP:journals/corr/abs-2008-13589}.\\*
 Una volta appurato che il software simulasse correttamente i processi descritti, ottenendo risultati conformi a quanto atteso, sono stati eseguiti test metodologicamente analoghi ai precedenti, adottando per\'o un bias verso l'opinione dominante pari a $\frac{1}{4}$, di fatto dimezzandolo.\\*
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{imgs/Test/Test_025.png}
+    \caption*{Test con $\alpha = \frac{1}{4}$}
+\end{figure}
 Per quanto riguarda il Ciclo e la Clique, sono stati ancora una volta confermati i risultati attesi.
 Lo stato di assorbimento per il Ciclo \'e stato nuovamente raggiunto in $O(\frac{1}{\alpha}n\log{}n)$ passi in valore atteso. Nello specifico, dimezzando il valore del bias, i tempi di assorbimento per tale topologia sono raddoppiati, suggerendo una proporzionalit\'a inversa tra il tempo di assorbimento e il valore del bias.\\*
 D'altra parte, come previsto, \'e stato impossibile ultimare i test per la Clique, in quanto, con un bias inferiore a $\frac{1}{2}$, il numero di passi necessari a raggiungere lo stato di assorbimento \'e diventato esponenziale nel grado minimo ($n-1$ per le Clique), di fatto rendendo impossibile lo svolgimento dei test gi\'a dalla dimensione di $2^{6^{\mathrm{}}}$.\\*
@@ -100,9 +110,9 @@ In tale modello, dato un grafo G($V$,$E$) con $|V|$ = $n$,
 I test eseguiti sono composti da 100 simulazioni, configurate con Majority-Dynamics e bias pari a $\frac{1}{4}$.\\*
 Le topologie prese in considerazione hanno dimensioni che vanno da $2^{5^{\mathrm{}}}$ fino a $2^{12^{\mathrm{}}}$ vertici e sono state generate con il modello G($n$,$p$) descritto precedentemente, utilizzando i seguenti valori di $p$:
 \begin{itemize}
-\item $p$ = $\frac{1-\epsilon}{n}$ con $\epsilon=\frac{1}{2}$, per il quale il grafo risulta principalmente sparso, con alta probabilit\'a
-\item $p$ = $\frac{1+\epsilon}{n}$ con $\epsilon=\frac{1}{2}$, per il quale il grafo presenta una \emph{giant component} circondata da componenti pi\'u piccole di dimensione $O(\log{}n)$, con alta probabilit\'a
-\item $p$ = $\frac{\log{}n}{n}$, per il quale il grafo risulta connesso e discretamente denso, con alta probabilit\'a
+\item $p$ = $\frac{1-\epsilon}{n}$ con $\epsilon=\frac{1}{2}$, per il quale il grafo risulta principalmente sparso, con alta probabilit\'a (in tabella indicato come ER\_SP).
+\item $p$ = $\frac{1+\epsilon}{n}$ con $\epsilon=\frac{1}{2}$, per il quale il grafo presenta una \emph{giant component} circondata da componenti pi\'u piccole di dimensione $O(\log{}n)$, con alta probabilit\'a (in tabella indicato come ER\_GC).
+\item $p$ = $\frac{\log{}n}{n}$, per il quale il grafo risulta connesso e discretamente denso, con alta probabilit\'a (in tabella indicato come ER\_DN).
 \end{itemize}
 \begin{figure}[H]
 \centering
@@ -126,6 +136,11 @@ Le topologie prese in considerazione hanno dimensioni che vanno da $2^{5^{\mathr
     \end{subfigure}%
 \caption*{Esempi ottenuti utilizzando le probabilit\'a descritte. $n$=256, $\epsilon$=$\frac{1}{2}$}
 \end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{imgs/Test/Test_ER.png}
+    \caption*{Test Erd{\"o}s R\'enyi con $\alpha = \frac{1}{4}$}
+\end{figure}
 I risultati dei test descrivono un andamento meno prevedibile di quanto ci si potesse aspettare.\\*
 Per valori di $p$ che si allontanano dallo 0 il tempo di assorbimento inizia a diminuire, mentre gli studi compiuti sulla Clique \cite{DBLP:journals/corr/abs-2008-13589} evidenziano una crescita esponenziale nel grado minimo quando $p$ tende a 1. La curva che si ottiene perci\'o fissando $n$ e facendo variare $p$ non risulta essere monotona crescente, in contrasto con quanto atteso.\\*
 Per indagare tale comportamento in modo pi\'u approfondito, ho eseguito ulteriori test con la seguente configurazione:
@@ -135,7 +150,6 @@ Per indagare tale comportamento in modo pi\'u approfondito, ho eseguito ulterior
     \item $p$ assume valori in [ $\frac{1-\epsilon}{n}$ , $\frac{{(1+\epsilon)}\log{}n}{n}$ ] t.c. $p_{i+1}$ - $p_{i}$ = 0.001
 \end{itemize}
 Di seguito sono mostrati due grafici ottenuti eseguendo i test sopracitati.\\*
-Sulle ascisse sono rappresentati i valori di $p$ mentre sulle ordinate i tempi di assorbimento. La curva in verde rappresenta il valore medio ricavato dai test, mentre le curve in blu e rosso descrivono i bound ottenuti rispettivamente sottraendo e sommando la deviazione standard al valore medio.
 \begin{figure}[H]
 \centering
     \begin{subfigure}[b]{0.45\textwidth}
@@ -150,8 +164,18 @@ Sulle ascisse sono rappresentati i valori di $p$ mentre sulle ordinate i tempi d
       \caption*{$n=1024$}
       \label{fig:sub2}
     \end{subfigure}
-\caption*{Grafici che mostrano l'andamento del tempo di assorbimento al variare di $p$}
+\caption*{Sulle ascisse sono rappresentati i valori di $p$ mentre sulle ordinate i tempi di assorbimento. La curva in verde rappresenta il valore medio ricavato dai test, mentre le curve in blu e rosso descrivono i bound ottenuti rispettivamente sottraendo e sommando la deviazione standard al valore medio.}
 \end{figure}
 Dai grafici si evince come il minimo della funzione ottenuta non si trovi in $p=0$, come ci si poteva aspettare, per il quale il tempo di assorbimento \'e pari a $O(\frac{1}{\alpha}n\log{}n)$.
-Questo implica l'esistenza di un valore di $p \geq 0$ per il quale il processo raggiunge lo stato di assorbimento in $o(\frac{1}{\alpha}n\log{}n)$ rounds con alta probabilit\'a. 
+Questo implica l'esistenza di un valore di $p \geq 0$ per il quale il processo raggiunge lo stato di assorbimento in $o(\frac{1}{\alpha}n\log{}n)$ rounds con alta probabilit\'a.\\*
+Dai dati ricavati nei diversi test eseguiti sugli Erd{\"o}s R\'enyi \'e possibile osservare che:
+\begin{itemize}
+    \item I valori ottenuti dalla prima serie di test descrivono un andamento decrescente del tempo di assorbimento almeno fino a $\frac{\log{n}}{n}$.
+    \item La seconda serie di test descrive una crescita del tempo di assorbimento partendo da un punto di minimo non esplicitato, e prosegue fino al limite per $p$ fissato per questi test, che corrisponde a $\frac{3\log{n}}{2n}$.
+\end{itemize}
+Tutto ci\'o suggerisce come il punto di minimo $p_{min}$ si trovi in $[\frac{\log{n}}{n} , \frac{3\log{n}}{2n}]$.\\*
+Sapendo che per il modello G($n$, $p$) il numero di archi in valore atteso \'e $\binom{n}{2}p$, se ne ricava che lo stato di assorbimento viene raggiunto pi\'u velocemente nei grafi che hanno un numero di archi E:
+\begin{equation}
+    \frac{(n-1)\log{n}}{2} \leq |E| \le1  \frac{3(n-1)\log{n}}{4}
+\end{equation}
 \end{document}

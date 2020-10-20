@@ -5,8 +5,50 @@
 \section{Opinion Dynamic Simulator}
 Il software sviluppato fornisce degli strumenti utili a riprodurre le dinamiche descritte al fine di indagare legami inespressi che intercorrono tra alcune topologie e valori di bias.\\*
 Il linguaggio principale scelto per lo sviluppo del software \'e Python. Le motivazioni dietro tale scelta risiedono non soltanto nella grande diffusione e nel grande supporto di cui questo linguaggio gode, ma anche dalla presenza di numerosi moduli che permettono di rappresentare ed interagire al meglio con i grafi, strutture attraverso le quali viene rappresentata la rete sociale.
-Tra i vari moduli disponibili \'e stato scelto Graph-Tool. Tra i punti di forza di questo modulo si annoverano una precisa modellazione di tali strutture, con possibilit\'a di aggiungere propriet\'a personalizzate su vertici e archi nonch\'e numerose funzioni di generazione e rappresentazione di alcune topologie tipiche dei grafi, quali Paths, Cicli e Cliques. Il vero punto di forza di Graph-Tool \'e per\'o la sua velocit\'a, ottenuta grazie alla possibilit\'a di eseguire molte di queste funzioni non in Python, bens\'i in C, linguaggio di livello pi\'u basso e perci\'o pi\'u rapido nell'esecuzione di alcune istruzioni fondamentali.\\*
-Alcune topologie non presenti nativamente nel modulo, sono state personalmente riscritte utilizzando comunque le strutture di base fornite. \'E questo il caso dell'Ipercubo, per il quale ho scritto un algoritmo di generazione basato sull'idea alla base di Bit-Fix\footnote{Algoritmo utilizzato per il ``routing'' su ipercubi.}, e del Modello di Erd{\"o}s R\'enyi. \cite{Erdos:1959:pmd}\\*
+Tra i vari moduli disponibili \'e stato scelto Graph-Tool\footnote{https://graph-tool.skewed.de}. Tra i punti di forza di questo modulo si annoverano una precisa modellazione di tali strutture, con possibilit\'a di aggiungere propriet\'a personalizzate su vertici e archi nonch\'e numerose funzioni di generazione e rappresentazione di alcune topologie tipiche dei grafi, quali Paths, Cicli e Cliques. Il vero punto di forza di Graph-Tool \'e per\'o la sua velocit\'a, ottenuta grazie alla possibilit\'a di eseguire molte di queste funzioni non in Python, bens\'i in C, linguaggio di livello pi\'u basso e perci\'o pi\'u rapido nell'esecuzione di alcune istruzioni fondamentali.\\*
+Alcune topologie non presenti nativamente nel modulo, sono state personalmente riscritte utilizzando comunque le strutture di base fornite. \'E questo il caso dell'Ipercubo e del Modello di Erd{\"o}s R\'enyi \cite{Erdos:1959:pmd}, di cui \'e riportato lo pseudocodice.\\*
+
+\begin{algorithm}[H]
+  n $\gets$ $2^{d^{\mathrm{}}}$\;
+  graph $\gets$ \emph{new} GraphTool.Graph(vertices=n)\;
+  \For{u $\in$ graph.vertices}{
+        binaryIndex $\gets$ binary(u.index)\;
+        \For{bit $\in$ binaryIndex}{
+            binaryIndex $\gets$ binaryIndex.flip(bit)\;
+            v $\gets$ graph.getVertexByIndex(int(binaryIndex))\;
+            graph.addEdge(u,v)\;
+        }
+  }
+  \Return graph\;
+\caption{generateHypercube(\emph{d}: int)}
+\end{algorithm}
+
+\hfill \break
+
+\begin{algorithm}[H]
+  \If{p $\geq$ 1}{
+    \Return completeGraph(n)\;
+  }
+  
+  graph $\gets$ \emph{new} GraphTool.Graph(vertices=n)\;
+  
+  \If{p $\leq$ 0}{
+    \Return graph\;
+  }
+  
+  \For{i $\in$ 0...n-1}{
+        \For{j $\in$ i+1...n-1}{
+            u $\gets$ graph.getVertexByIndex(i)\;
+            v $\gets$ graph.getVertexByIndex(j)\;
+            \text{graph.addEdge(u,v) with probability \emph{p}}\;
+        }
+  }
+  \Return graph\;
+\caption{generateErd{\"o}s-R\'enyi(\emph{n}: int, \emph{p}: float)}
+\end{algorithm}
+
+\hfill \break
+
 Partendo da tale base, \'e stato sviluppato il processo di simulazione vero e proprio. Tale processo necessita come input, oltre al grafo, di un oggetto (d'ora in poi definito come \emph{configurator}) contenente i parametri necessari alla configurazione della simulazione, come ad esempio la dinamica adottata e il bias verso l'opinione dominante.\\* 
 Al termine del processo di simulazione verr\'a generato un oggetto in grado di salvare diverse informazioni, quali:
 \begin{itemize}

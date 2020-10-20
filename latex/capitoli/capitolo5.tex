@@ -1,0 +1,15 @@
+\documentclass[../Tesi.tex]{subfiles}
+
+\begin{document}
+\chapter{Conclusioni e Sviluppi Futuri}
+\section{Conclusioni}
+Questo lavoro di tesi \'e incentrato sull'analisi del comportamento che alcune particolari topologie assumono in merito al raggiungimento del consenso nell'ambito della dinamica di opinioni. Si pone come uno studio integrativo dell'articolo \emph{Biased Opinion Dynamics} \cite{DBLP:journals/corr/abs-2008-13589} per il quale cerca di fornire risposte ad alcune domande rimaste insolute.\\*
+Per far questo \'e stato sviluppato un software che permettesse di simulare le dinamiche descritte e analizzarne empiricamente i dati prodotti. I primi test hanno avuto come soggetto di analisi l'ipercubo per il quale hanno evidenziato un tempo di assorbimento che \'e risultato essere, nonostante il grado minimo pari a $\Omega(\log{n})$, asintoticamente assimilabile a quello del Ciclo.\\*
+Successivamente sono stati analizzati i tempi di assorbimento per grafi non regolari, generati tramite il modello G($n$, $p$) di Erd{\"o}s R\'enyi \cite{Erdos:1959:pmd}.\\*
+In questo caso l'analisi dei dati suggerisce un andamento non monotono della funzione che lega il valore di $p$ al tempo di assorbimento, evidenziando un punto di minimo situato nell'intervallo $[\frac{\log{n}}{n} , \frac{3\log{n}}{2n}]$.\\*
+Questo ha permesso di identificare il numero di archi necessari affinch\'e il processo termini in un numero di passi inferiore a $\frac{1}{\alpha}n\log{}n$.
+\section{Sviluppi Futuri}
+Il software di simulazione \'e stato modellato e realizzato affinch\'e fosse facilmente espandibile in futuro. In questo senso risulterebbe interessante indagare analiticamente il comportamento di altre topologie, valori di bias e dinamiche di aggiornamento rimaste inesplorate.\\*
+Un'altra direzione percorribile potrebbe essere quella di implementare una struttura che permetta di astrarre maggiormente i processi di simulazioni cosi da poter fornire topologie generate da altre librerie e non necessariamente da Graph-Tool.\\*
+Seppure quest'ultima rappresenti un ottimo compromesso tra versatilit\'a, funzionalit\'a e prestazioni, \'e innegabile come il suo maggior punto di forza rappresenti al contempo una debolezza per quanto riguarda la difficolt\'a di importazione all'interno dell'ambiente di sviluppo, soprattutto per sistemi non \emph{Unix-Like}.
+\end{document}

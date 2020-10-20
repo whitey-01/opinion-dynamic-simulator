@@ -6,7 +6,7 @@ La dinamica delle opinioni ha come obiettivo quello di descrivere l'evoluzione d
 Numerosi sono stati gli studi effettuati su modelli diversificati, contraddistinti soprattutto dalle dinamiche di interazione e il numero delle opinioni prese in esame, che hanno trovato come campo di applicazione discipline che vanno dalle Scienze Sociali alla Fisica e alla Biologia.
 
 \section{Lo studio}
-Il modello preso in esame descrive un sistema binario che prevede l'esistenza di due opinioni adottabili, indicate d'ora in poi come opinione 0 e opinione 1. Supponiamo inoltre che gli agenti del sistema esprimano una preferenza, nominata d'ora in poi come ``\emph{bias}'', verso una delle due opinioni, che definiremo dominante\footnote{``La definizione'' di opinione dominante dipende dal contesto ed esula dagli obiettivi di questo lavoro.}. Senza perdita di generalit\'a, d'ora in poi assumeremo 1 come tale.\\*
+Il modello preso in esame descrive un sistema binario che prevede l'esistenza di due opinioni adottabili, indicate d'ora in poi come opinione 0 e opinione 1. Supponiamo inoltre che gli agenti del sistema esprimano una preferenza, nominata d'ora in poi come \emph{bias}, verso una delle due opinioni, che definiremo dominante\footnote{La definizione di opinione dominante dipende dal contesto ed esula dagli obiettivi di questo lavoro.}. Senza perdita di generalit\'a, d'ora in poi assumeremo 1 come tale.\\*
 Il sistema evolve in passi. Inizialmente ogni individuo condivide l'opinione 0.\\*
 Ad ogni passo, un individuo scelto con probabilit\'a uniforme adotta l'opinione 1 (dominante) con probabilit\'a $\alpha$, mentre con probabilit\'a 1-$\alpha$ adotta una delle due opinioni possibili attraverso una delle dinamiche prestabilite.\\*
 Le dinamiche di aggiornamento dell'opinione prese in considerazione sono:
@@ -14,13 +14,13 @@ Le dinamiche di aggiornamento dell'opinione prese in considerazione sono:
 \item \emph{Voter Model}, nel quale l'individuo adotter\'a l'opinione di uno dei suoi vicini scelto con praobabilit\'a uniforme.
 \item \emph{Majority-Dynamics}, nel quale l'individuo adotter\'a l'opinione pi\'u diffusa tra i suoi vicini. In caso di parit\'a verr\'a scelta una delle due opinioni con probabilit\'a uniforme.
 \end{itemize}
-L'obiettivo \'e quello di analizzare il numero di passi, in valore atteso, necessari affinch\'e si raggiunga il consenso verso l'opinione dominante. \'E facile notare come, raggiunto questo stato, il sistema non possa evolvere pi\'u. Definiremo perci\'o tale stato ``Stato di Assorbimento''.\\*
+L'obiettivo \'e quello di analizzare il numero di passi, in valore atteso, necessari affinch\'e si raggiunga il consenso verso l'opinione dominante. \'E facile notare come, raggiunto questo stato, il sistema non possa evolvere pi\'u. Definiremo perci\'o tale stato \emph{Stato di Assorbimento}.\\*
 Tale analisi \'e volta a rivelare, laddove esistesse, il legame che intercorre tra la topologia della rete e il numero di passi necessari a raggiungere lo stato di assorbimento, sotto una specifica dinamica.
 La dinamica di aggiornamento dell'opinione principalmente trattata in questo lavoro \'e Majority-Dynamics.
 
 \section{Lo stato dell'arte}
 Nel corso degli anni sono stati molteplici gli studi riguardanti la Dinamica delle Opinioni, in particolare per quanto concerne l'impatto che differenti topologie hanno sul raggiungimento del consenso.\\*
-Questo lavoro di tesi si pone come integrazione dell'articolo ``\emph{Biased Opinion Dynamics: When the Devil is in the Details}'' \cite{DBLP:journals/corr/abs-2008-13589}, con cui condivide il modello, ed ha come fine ultimo quello di rispondere ad alcuni quesiti lasciati insoluti, attraverso un'analisi dei dati ottenuti simulando il processo descritto nel paragrafo precedente.
+Questo lavoro di tesi si pone come integrazione dell'articolo \emph{Biased Opinion Dynamics: When the Devil is in the Details} \cite{DBLP:journals/corr/abs-2008-13589}, con cui condivide il modello, ed ha come fine ultimo quello di rispondere ad alcuni quesiti lasciati insoluti, attraverso un'analisi dei dati ottenuti simulando il processo descritto nel paragrafo precedente.
 Il Voter-Model ricopre un ruolo secondario in questo lavoro in quanto, nell'articolo \cite{DBLP:journals/corr/abs-2008-13589}, gli autori hanno dimostrato che il tempo di assorbimento nel modello preso in esame \'e di $O(\frac{1}{\alpha}n\log{}n)$ passi con alta probabilit\'a, indipendentemente dalla topologia della rete.\\*
 Differenti invece sono i legami, come dimostrato, che intercorrono tra il bias, la topologia e il tempo di assorbimento quando la dinamica di aggiornamento \'e Majority-Dynamics.\\*
 In un Ciclo di $n$ nodi, ad esempio, il consenso viene raggiunto in $O(\frac{1}{\alpha}n\log{}n)$ passi in valore atteso, mentre su topologie pi\'u dense con grado minimo $\Omega(\log{}n)$, il tempo di assorbimento \'e $O(n\log{}n)$ fino a che il bias \'e $\geq$ $\frac{1}{2}$.
