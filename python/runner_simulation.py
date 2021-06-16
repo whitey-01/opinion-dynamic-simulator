@@ -7,7 +7,7 @@ import python.simulator.opinion_update_rules as our
 # simple main that performs a simulation of the process
 
 
-n = 1024
+n = 512
 eps = 0.5
 p = 0.014488281250000005
 graph = gg.generateERGraph(n, p)
